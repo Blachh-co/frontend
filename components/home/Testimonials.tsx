@@ -3,7 +3,10 @@
 import type { CSSProperties } from "react"
 import { useState } from "react"
 import { ChevronUp, ChevronDown } from "lucide-react"
+import { Swiper, SwiperSlide } from "swiper/react"
 import TestimonialsCard from "../ui/TestimonialsCard"
+
+import "swiper/css"
 
 const testimonials = [
   {
@@ -72,7 +75,7 @@ export function Testimonials() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4 xl:flex-col xl:gap-6">
+          <div className="hidden items-center gap-4 md:flex xl:flex-col xl:gap-6">
             <button
               type="button"
               aria-label="Show previous testimonials"
@@ -103,7 +106,21 @@ export function Testimonials() {
         </div>
 
         {/* RIGHT */}
-        <div className="h-64 overflow-hidden md:h-[18rem] xl:h-[41.875rem]">
+        <div className="overflow-x-hidden md:hidden">
+          <Swiper slidesPerView={1.08} spaceBetween={16} className="w-full !overflow-visible">
+            {testimonials.map((testimonial) => (
+              <SwiperSlide key={`${testimonial.reviewerName}-${testimonial.review}`}>
+                <TestimonialsCard
+                  imageUrl={testimonial.imageUrl}
+                  review={testimonial.review}
+                  reviewerName={testimonial.reviewerName}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div className="hidden h-[18rem] overflow-hidden md:block xl:h-[41.875rem]">
           <div
             className="flex flex-col gap-4 transition-transform duration-300 ease-out md:gap-5 translate-y-[calc(var(--testimonial-offset)*-17rem)] md:translate-y-[calc(var(--testimonial-offset)*-18.25rem)] xl:translate-y-[calc(var(--testimonial-offset)*-14.375rem)]"
             style={{ "--testimonial-offset": startIndex } as CSSProperties}

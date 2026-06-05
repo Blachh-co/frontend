@@ -6,11 +6,10 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="h-89.25 w-full border-t border-[#E2DDD5] bg-[#FBF9F6] py-20 px-16 flex justify-center items-center gap-3">
-      
+    <footer className="flex w-full flex-col gap-8 border-t border-[#E2DDD5] bg-[#FBF9F6] px-5 py-10 md:h-89.25 md:flex-row md:items-center md:justify-center md:gap-3 md:px-16 md:py-20">
       {/* LEFT */}
-      <div className="px-5 flex flex-col h-full justify-between w-full">
-        <div className="gap-3 font-hanken text-sm text-[#6D625A] font-light flex justify-between items-center">
+      <div className="flex w-full flex-col gap-8 md:h-full md:justify-between md:px-5">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 font-hanken text-sm font-light text-[#6D625A] sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-between md:gap-3">
           <p>About Us</p>
           <p>Shopping Policy</p>
           <p>Privacy</p>
@@ -25,12 +24,12 @@ export function Footer() {
       </div>
 
       {/* DIVIDER */}
-      <div className="h-58.25 border-r border-[#E2DDD5]" />
+      <div className="hidden h-58.25 border-r border-[#E2DDD5] md:block" />
 
 
       {/* RIGHT */}
-      <div className="w-full h-full flex flex-col justify-between px-5">
-        <div className="flex flex-col">
+      <div className="flex w-full flex-col gap-8 md:h-full md:justify-between md:px-5">
+        <div className="flex flex-col gap-1">
           <Link
             href="mailto:hello@blach.co"
             className="font-hanken text-sm font-light text-black underline"
@@ -45,15 +44,15 @@ export function Footer() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-4 mt-8">
+        <div className="flex items-center gap-4">
           <InstagramIcon />
           <TiktokIcon />
           <Mail className="w-5.5 h-5.5" />
         </div>
 
-        <div className="flex flex-col items-center self-end ">
-          <Image 
-            src={'/mascots/BLACHH-04-1.png'}
+        <div className="flex flex-col items-start gap-3 md:self-end md:items-center">
+          <Image
+            src={"/mascots/BLACHH-04-1.png"}
             alt="Footer mascot"
             width={101}
             height={65}
@@ -64,7 +63,6 @@ export function Footer() {
           </button>
         </div>
       </div>
-
     </footer>
   );
 }

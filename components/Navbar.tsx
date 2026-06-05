@@ -55,7 +55,7 @@ export function Navbar() {
 
         <div className="hidden h-18 grid-cols-[1fr_auto_1fr] items-center px-12 md:grid">
           <div className="flex items-center gap-10 text-sm font-cormorant text-[#2B211B]">
-            <Link href="/shop" className="cursor-pointer">
+            <Link href="/products" className="cursor-pointer">
               SHOP
             </Link>
             <Link href="/about" className="cursor-pointer">
@@ -143,7 +143,7 @@ export function Navbar() {
 
           <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
             <Link
-              href="/shop"
+              href="/products"
               onClick={closeMenu}
               className="font-cormorant text-4xl leading-none tracking-[0.08em] text-[#2B211B]"
             >
