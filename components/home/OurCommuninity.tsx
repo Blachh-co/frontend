@@ -1,44 +1,113 @@
 "use client";
 
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+const communityCards = [
+  {
+    title: "Morning pour",
+    caption: "Whisked slow, sipped warm",
+    className:
+      "min-h-64 bg-linear-to-b from-[#D7E3C2] via-[#EDE3D6] to-[#C9B6A6]",
+  },
+  {
+    title: "Cafe corner",
+    caption: "Soft light and ceremonial green",
+    className:
+      "min-h-80 bg-linear-to-b from-[#F4D9D9] via-[#EEDFCF] to-[#BFA38C] md:mt-10",
+  },
+  {
+    title: "Daily ritual",
+    caption: "Bowls, bamboo, and quiet starts",
+    className:
+      "min-h-80 bg-linear-to-b from-[#D9E5D4] via-[#F1EAE0] to-[#CAB6A3] md:mt-0",
+  },
+  {
+    title: "Slow living",
+    caption: "Little scenes from the community",
+    className:
+      "min-h-64 bg-linear-to-b from-[#E9D7C3] via-[#F5EEE6] to-[#D5C3B5] md:mt-10",
+  },
+];
+
 export function OurCommuninity() {
   const router = useRouter();
   const onClickFollowButton = () => {
-    router.push('https://instagram.com/blachh.co')
-  }
+    router.push("https://instagram.com/blachh.co");
+  };
+
   return (
-    <section className="flex flex-col items-center py-20 px-18 bg-[#F7F3EE]">
-      <p className="uppercase font-hanken text-sm text-[#9A9A94] leading-6.75">OUR COMMUNITY</p>
-      
-      <h1 className="mt-2.5 font-libre text-[52px] text-[#2B211B] leading-6.75">Join the Blachh Community</h1>
-    
-      <h2 className="mt-3.5 text-[#5A5A55] font-hanken text-sm font-light leading-6.75">Snapshots of matcha rituals and slow living moments from our community</h2>
-    
-      <div className="mt-6 grid grid-cols-4 w-full gap-x-2.5">
-        <div className="h-112 w-full rounded-md bg-gray-300" />
-        <div className="h-112 w-full rounded-md bg-gray-300" />
-        <div className="h-112 w-full rounded-md bg-gray-300" />
-        <div className="h-112 w-full rounded-md bg-gray-300" />
+    <section className="bg-[#F7F3EE] px-5 py-14 sm:px-6 md:px-12 md:py-20 lg:px-18">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
+        <p className="font-hanken text-xs leading-6 uppercase tracking-[0.18em] text-[#9A9A94] sm:text-sm">
+          OUR COMMUNITY
+        </p>
+
+        <h1 className="mt-3 text-center font-libre text-[2rem] leading-tight text-[#2B211B] sm:text-[2.5rem] md:mt-2.5 md:text-[52px] md:leading-[1.08]">
+          Join the Blachh Community
+        </h1>
+
+        <h2 className="mt-3 max-w-xl text-center font-hanken text-sm leading-6 text-[#5A5A55] sm:text-[15px] md:mt-3.5 md:leading-7">
+          Snapshots of matcha rituals and slow living moments from our
+          community
+        </h2>
+
+        <div className="mt-8 grid w-full grid-cols-2 gap-3 md:mt-6 md:grid-cols-4 md:gap-2.5">
+          {communityCards.map((card, index) => (
+            <div
+              key={card.title}
+              className={`relative overflow-hidden rounded-2xl p-4 md:rounded-md md:p-5 ${card.className} ${
+                index % 2 === 1 ? "mt-8 md:mt-0" : ""
+              }`}
+            >
+              <div className="absolute inset-0 bg-linear-to-t from-[#2B211B1A] via-transparent to-white/35" />
+              <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-white/45 bg-white/20 blur-xl" />
+
+              <div className="relative flex h-full flex-col justify-between">
+                <span className="w-fit rounded-full border border-white/60 bg-white/70 px-3 py-1 font-hanken text-[11px] uppercase tracking-[0.18em] text-[#6D625A] backdrop-blur-sm">
+                  Community
+                </span>
+
+                <div>
+                  <p className="font-libre text-[26px] leading-none text-[#2B211B]">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <p className="mt-3 font-hanken text-base leading-5 text-[#2B211B]">
+                    {card.title}
+                  </p>
+                  <p className="mt-1 max-w-[12rem] font-hanken text-xs leading-5 text-[#5A5A55]">
+                    {card.caption}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="mt-14 mb-6 flex justify-center items-center gap-2.5">
-        <Image 
-          src="/BLACHH-02.png"
-          alt="Blachh Mascot"
-          width={84}
-          height={80}
-        />
+      <div className="mx-auto mt-10 w-full max-w-md rounded-3xl border border-[#E7DDD3] bg-[#FBF7F2] px-5 py-5 md:mt-14 md:max-w-none md:rounded-none md:border-0 md:bg-transparent md:px-0 md:py-0">
+        <div className="flex flex-col items-center justify-center gap-4 md:mb-6 md:flex-row md:gap-2.5">
+          <Image
+            src="/mascots/BLACHH-02.png"
+            alt="Blachh Mascot"
+            width={84}
+            height={80}
+            className="h-auto w-16 shrink-0 md:w-[84px]"
+          />
 
-        <p className="text-[#5A5A55] font-hanken text-sm leading-6.75">Follow us on Instagram <span className="font-medium text-[#2D4A2A]">@blachh.co</span></p>
-        
-        <button 
-          className="cursor-pointer w-20 h-6.75 text-sm rounded-sm border-[1.5px] border-[#FFCAD4] bg-[#FFCAD4B2]"
-          onClick={onClickFollowButton}
+          <p className="text-center font-hanken text-sm leading-6 text-[#5A5A55] md:text-left md:leading-6.75">
+            Follow us on Instagram{" "}
+            <span className="font-medium text-[#2D4A2A]">@blachh.co</span>
+          </p>
+
+          <button
+            className="h-11 w-full cursor-pointer rounded-sm border-[1.5px] border-[#FFCAD4] bg-[#FFCAD4B2] px-5 text-sm text-[#2B211B] sm:w-auto md:h-6.75 md:min-w-20 md:px-4"
+            onClick={onClickFollowButton}
           >
             Follow
           </button>
+        </div>
       </div>
     </section>
-  )
+  );
 }

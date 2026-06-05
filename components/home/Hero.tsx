@@ -3,38 +3,39 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative h-145 w-full overflow-hidden">
+    <section className="relative min-h-[72svh] w-full overflow-hidden md:min-h-[45rem]">
       <Image
         src="/hero-background.png"
         alt="Hero background"
         fill
         priority
+        sizes="100vw"
         className="object-cover object-center"
       />
 
-      <div className="absolute inset-0 bg-linear-to-r from-white/35 via-white/10 to-white/0" />
+      <div className="absolute inset-0 bg-linear-to-r from-white/80 via-white/45 to-white/10 md:from-white/35 md:via-white/10 md:to-white/0" />
 
-      <div className="relative z-10 mx-auto flex h-full w-full items-center ">
-        <div className="max-w-xl h-full ml-20 mt-48">
-          <p className="font-hanken text-sm uppercase leading-7.75 text-[#1C1C1A80]">
+      <div className="relative z-10 flex min-h-[72svh] w-full items-center justify-center md:min-h-[45rem] md:justify-start">
+        <div className="flex max-w-[20rem] flex-col items-center px-5 py-10 text-center sm:max-w-md sm:px-6 md:max-w-xl md:items-start md:px-10 md:text-left lg:px-16">
+          <p className="font-hanken text-xs leading-6 uppercase tracking-[0.18em] text-[#1C1C1A80] sm:text-sm sm:leading-7">
             Ceremonial Grade · Stone-Milled in Japan
           </p>
 
-          <h1 className="mt-4 text-[58px] font-normal leading-12.75 text-[#1C1C1A] font-libre">
-            Made for <span className="italic">slow</span> <br />
-            mornings.
+          <h1 className="mt-3 font-libre text-4xl leading-tight font-normal text-[#1C1C1A] sm:mt-4 sm:text-5xl md:text-[58px] md:leading-[1.02]">
+            Made for <span className="italic">slow</span>{" "}
+            <span className="block md:inline">mornings.</span>
           </h1>
 
-          <p className="mt-3 font-hanken text-sm leading-7 text-[#1C1C1AB2]">
+          <p className="mt-3 max-w-sm font-hanken text-sm leading-6 text-[#1C1C1AB2] md:leading-7">
             Matcha that tastes like the morning you&apos;ve been looking for.
           </p>
 
-          <div className="mt-5 font-hanken text-sm leading-7 text-[#1C1C1A99]">
+          <div className="mt-4 font-hanken text-sm leading-6 text-[#1C1C1A99] md:mt-5 md:leading-7">
             ★★★★★ 4.9 · 134 reviews
           </div>
 
-          <button className="cursor-pointer mt-6 flex items-center justify-center gap-1 rounded-sm bg-[#FFCAD4] px-5 py-3">
-            <p className="font-hanken text-md leading-7 text-[#2B211B]">
+          <button className="mt-6 flex w-full cursor-pointer items-center justify-center gap-1 rounded-sm bg-[#FFCAD4] px-5 py-3 sm:w-fit">
+            <p className="font-hanken text-base leading-7 text-[#2B211B]">
               Shop Now
             </p>
             <ArrowRight className="h-4 w-4 text-[#2B211B]" />
