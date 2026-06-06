@@ -12,10 +12,9 @@ interface ProductImageGalleryProps {
   product: Product;
 }
 
-const galleryImages = Array.from({ length: 4 }, () => "/mock/mock-product.png");
-
 export function ProductImageGallery({ product }: ProductImageGalleryProps) {
-  const [selectedImage, setSelectedImage] = useState(galleryImages[0]);
+  const galleryImages = Array.from({ length: 4 }, () => product.imageSrc);
+  const [selectedImage, setSelectedImage] = useState(product.imageSrc);
 
   return (
     <section className="flex w-full shrink-0 flex-col gap-5 md:w-[460px] md:gap-8">

@@ -106,7 +106,7 @@ export function Testimonials() {
             </motion.p>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="hidden items-center gap-4 md:flex xl:flex-col xl:gap-6">
+          <motion.div variants={fadeUp} className="hidden items-center gap-4 xl:flex xl:flex-col xl:gap-6">
             <button
               type="button"
               aria-label="Show previous testimonials"
@@ -137,8 +137,8 @@ export function Testimonials() {
         </motion.div>
 
         {/* RIGHT */}
-        <motion.div variants={fadeUp} className="overflow-x-hidden md:hidden">
-          <Swiper slidesPerView={1.08} spaceBetween={16} className="w-full !overflow-visible">
+        <motion.div variants={fadeUp} className="overflow-x-hidden xl:hidden">
+          <Swiper slidesPerView={1} spaceBetween={12} className="w-full">
             {testimonials.map((testimonial) => (
               <SwiperSlide key={`${testimonial.reviewerName}-${testimonial.review}`}>
                 <TestimonialsCard
@@ -151,7 +151,7 @@ export function Testimonials() {
           </Swiper>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="hidden h-[18rem] overflow-hidden md:block xl:h-[41.875rem]">
+        <motion.div variants={fadeUp} className="hidden h-[18rem] overflow-hidden xl:block xl:h-[41.875rem]">
           <div
             className="flex flex-col gap-4 transition-transform duration-300 ease-out md:gap-5 translate-y-[calc(var(--testimonial-offset)*-17rem)] md:translate-y-[calc(var(--testimonial-offset)*-18.25rem)] xl:translate-y-[calc(var(--testimonial-offset)*-14.375rem)]"
             style={{ "--testimonial-offset": startIndex } as CSSProperties}

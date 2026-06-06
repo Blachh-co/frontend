@@ -31,23 +31,19 @@ const stagger = {
 const communityCards = [
   {
     title: "Morning pour",
-    caption: "Whisked slow, sipped warm",
-    className: "bg-linear-to-b from-[#D7E3C2] via-[#EDE3D6] to-[#C9B6A6]",
+    videoSrc: "https://assets.mixkit.co/videos/43936/43936-720.mp4",
   },
   {
     title: "Cafe corner",
-    caption: "Soft light and ceremonial green",
-    className: "bg-linear-to-b from-[#F4D9D9] via-[#EEDFCF] to-[#BFA38C]",
+    videoSrc: "https://assets.mixkit.co/videos/41220/41220-720.mp4",
   },
   {
     title: "Daily ritual",
-    caption: "Bowls, bamboo, and quiet starts",
-    className: "bg-linear-to-b from-[#D9E5D4] via-[#F1EAE0] to-[#CAB6A3]",
+    videoSrc: "https://assets.mixkit.co/videos/88006/88006-720.mp4",
   },
   {
     title: "Slow living",
-    caption: "Little scenes from the community",
-    className: "bg-linear-to-b from-[#E9D7C3] via-[#F5EEE6] to-[#D5C3B5]",
+    videoSrc: "https://assets.mixkit.co/videos/4385/4385-720.mp4",
   },
 ];
 
@@ -59,32 +55,22 @@ export function OurCommuninity() {
 
   const renderCard = (
     card: (typeof communityCards)[number],
-    index: number,
     extraClassName = "",
   ) => (
     <div
-      className={`relative aspect-[3/4] overflow-hidden rounded-2xl p-4 md:h-full md:aspect-[4/5] md:rounded-md md:p-5 ${card.className} ${extraClassName}`}
+      className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#EDE3D6] md:h-full md:aspect-[4/5] md:rounded-md ${extraClassName}`}
+      aria-label={card.title}
     >
-      <div className="absolute inset-0 bg-linear-to-t from-[#2B211B1A] via-transparent to-white/35" />
-      <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-white/45 bg-white/20 blur-xl" />
-
-      <div className="relative flex h-full flex-col justify-between">
-        <span className="w-fit rounded-full border border-white/60 bg-white/70 px-3 py-1 font-hanken text-[11px] uppercase tracking-[0.18em] text-[#6D625A] backdrop-blur-sm">
-          Community
-        </span>
-
-        <div>
-          <p className="font-libre text-[26px] leading-none text-[#2B211B]">
-            {String(index + 1).padStart(2, "0")}
-          </p>
-          <p className="mt-3 font-hanken text-base leading-5 text-[#2B211B]">
-            {card.title}
-          </p>
-          <p className="mt-1 max-w-[12rem] font-hanken text-xs leading-5 text-[#5A5A55]">
-            {card.caption}
-          </p>
-        </div>
-      </div>
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+      >
+        <source src={card.videoSrc} type="video/mp4" />
+      </video>
     </div>
   );
 
@@ -119,18 +105,18 @@ export function OurCommuninity() {
             spaceBetween={12}
             className="w-full"
           >
-            {communityCards.map((card, index) => (
+            {communityCards.map((card) => (
               <SwiperSlide key={card.title} className="pb-1">
-                {renderCard(card, index, "min-w-0")}
+                {renderCard(card, "min-w-0")}
               </SwiperSlide>
             ))}
           </Swiper>
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-8 hidden w-full md:mt-6 md:grid md:grid-cols-4 md:items-stretch md:gap-2.5">
-          {communityCards.map((card, index) => (
+          {communityCards.map((card) => (
             <div key={card.title} className="h-full">
-              {renderCard(card, index)}
+              {renderCard(card)}
             </div>
           ))}
         </motion.div>

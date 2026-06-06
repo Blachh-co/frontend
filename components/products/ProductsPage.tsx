@@ -1,6 +1,10 @@
 import { ProductsCatalog } from "@/components/products/ProductsCatalog";
-import { products } from "@/components/products/productsData";
+import type { Product } from "@/components/products/productsData";
 
-export function ProductsPage() {
+interface ProductsPageProps {
+  products: Product[];
+}
+
+export function ProductsPage({ products }: ProductsPageProps) {
   return <ProductsCatalog products={products} />;
 }

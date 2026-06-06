@@ -2,10 +2,9 @@ import { ProductDetailTabs } from "@/components/products/ProductDetailTabs";
 import { ProductImageGallery } from "@/components/products/ProductImageGallery";
 import { ProductQuantityStepper } from "@/components/products/ProductQuantityStepper";
 import { ProductReviewCarousel } from "@/components/products/ProductReviewCarousel";
-import { products } from "@/components/products/productsData";
+import { getFeaturedProduct } from "@/lib/products";
 import { ChevronDown, Star, Truck } from "lucide-react";
 
-const featuredProduct = products[0];
 const reviewCounts = 128;
 const rating = 4.9;
 const ratingBreakdown = [
@@ -16,7 +15,23 @@ const ratingBreakdown = [
   { rating: 1, fillPercent: 0.5, reviewsCount: 28 },
 ] as const;
 
-export default function ProductDetailPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProductDetailPage() {
+  const featuredProduct = await getFeaturedProduct();
+
+  if (!featuredProduct) {
+    return (
+      <div className="bg-[#F5F0E8] px-5 py-20">
+        <div className="mx-auto max-w-[1440px]">
+          <p className="font-libre text-[24px] text-[#1F1A17]">
+            No product available.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="bg-[#F5F0E8]">
@@ -25,11 +40,11 @@ export default function ProductDetailPage() {
 
           <section className="flex min-w-0 flex-1 flex-col gap-4 md:gap-3">
             <p className="font-libre text-[12px] font-normal leading-5 text-[#9A9C9D] md:leading-none">
-              CEREMONIAL GRADE · KAGOSHIMA JAPAN · FIRST HARVEST
+              {featuredProduct.eyebrow}
             </p>
             <div className="flex flex-col gap-2">
               <h1 className="font-libre text-[30px] font-normal leading-[1.05] text-[#1F1A17] md:text-[36px] md:leading-none">
-                Hinoki <span className="italic">Organic</span>
+                {featuredProduct.productName}
               </h1>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
@@ -54,7 +69,7 @@ export default function ProductDetailPage() {
                 className="flex h-[44px] cursor-pointer items-center justify-between rounded-[2px] border border-[rgba(28,28,26,0.50)] px-4"
               >
                 <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-                  10g
+                  {featuredProduct.size > 0 ? `${featuredProduct.size}g` : "Default"}
                 </span>
                 <ChevronDown className="h-5 w-5 text-[#1C1C1A]" />
               </button>
