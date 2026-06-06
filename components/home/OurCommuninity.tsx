@@ -32,26 +32,22 @@ const communityCards = [
   {
     title: "Morning pour",
     caption: "Whisked slow, sipped warm",
-    className:
-      "md:min-h-64 bg-linear-to-b from-[#D7E3C2] via-[#EDE3D6] to-[#C9B6A6]",
+    className: "bg-linear-to-b from-[#D7E3C2] via-[#EDE3D6] to-[#C9B6A6]",
   },
   {
     title: "Cafe corner",
     caption: "Soft light and ceremonial green",
-    className:
-      "md:min-h-80 bg-linear-to-b from-[#F4D9D9] via-[#EEDFCF] to-[#BFA38C] md:mt-10",
+    className: "bg-linear-to-b from-[#F4D9D9] via-[#EEDFCF] to-[#BFA38C]",
   },
   {
     title: "Daily ritual",
     caption: "Bowls, bamboo, and quiet starts",
-    className:
-      "md:min-h-80 bg-linear-to-b from-[#D9E5D4] via-[#F1EAE0] to-[#CAB6A3] md:mt-0",
+    className: "bg-linear-to-b from-[#D9E5D4] via-[#F1EAE0] to-[#CAB6A3]",
   },
   {
     title: "Slow living",
     caption: "Little scenes from the community",
-    className:
-      "md:min-h-64 bg-linear-to-b from-[#E9D7C3] via-[#F5EEE6] to-[#D5C3B5] md:mt-10",
+    className: "bg-linear-to-b from-[#E9D7C3] via-[#F5EEE6] to-[#D5C3B5]",
   },
 ];
 
@@ -67,7 +63,7 @@ export function OurCommuninity() {
     extraClassName = "",
   ) => (
     <div
-      className={`relative aspect-[3/4] overflow-hidden rounded-2xl p-4 md:aspect-auto md:rounded-md md:p-5 ${card.className} ${extraClassName}`}
+      className={`relative aspect-[3/4] overflow-hidden rounded-2xl p-4 md:h-full md:aspect-[4/5] md:rounded-md md:p-5 ${card.className} ${extraClassName}`}
     >
       <div className="absolute inset-0 bg-linear-to-t from-[#2B211B1A] via-transparent to-white/35" />
       <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-white/45 bg-white/20 blur-xl" />
@@ -131,10 +127,10 @@ export function OurCommuninity() {
           </Swiper>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-8 hidden w-full md:mt-6 md:grid md:grid-cols-4 md:gap-2.5">
+        <motion.div variants={fadeUp} className="mt-8 hidden w-full md:mt-6 md:grid md:grid-cols-4 md:items-stretch md:gap-2.5">
           {communityCards.map((card, index) => (
-            <div key={card.title}>
-              {renderCard(card, index, index % 2 === 1 ? "mt-8 md:mt-0" : "")}
+            <div key={card.title} className="h-full">
+              {renderCard(card, index)}
             </div>
           ))}
         </motion.div>
