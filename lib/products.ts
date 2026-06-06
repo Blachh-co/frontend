@@ -19,7 +19,7 @@ function toProductCategory(value: string): ProductCategory {
 
 function mapShopifyProduct(product: Awaited<ReturnType<typeof getShopifyProducts>>[number]): Product {
   return {
-    imageSrc: product.featuredImage?.url ?? "/mock/mock-product.png",
+    imageSrc: product.featuredImage?.url ?? "/mock/products/society-hinoki.png",
     productName: product.title,
     size: 0,
     price: Number(product.priceRange.minVariantPrice.amount),
