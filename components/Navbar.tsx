@@ -314,7 +314,7 @@ export function Navbar({ currentCurrency, lang, dictionary }: NavbarProps) {
         </div>
       </div>
 
-      <CartDrawer />
+      <CartDrawer dictionary={dictionary.cart} a11y={dictionary.a11y} />
     </>
   );
 }

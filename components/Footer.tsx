@@ -3,29 +3,28 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import type { SupportedCurrencyCode } from "@/lib/currency";
+import type { Dictionary } from "@/lib/i18n";
 import InstagramIcon from "./icons/Instagram";
 import TiktokIcon from "./icons/Tiktok";
 
 interface FooterProps {
   currentCurrency: SupportedCurrencyCode;
+  dictionary: Dictionary["footer"];
 }
 
-export function Footer({ currentCurrency }: FooterProps) {
+export function Footer({ currentCurrency, dictionary }: FooterProps) {
   return (
     <footer className="flex w-full flex-col gap-8 border-t border-[#E2DDD5] bg-[#FBF9F6] px-5 py-10 md:h-89.25 md:flex-row md:items-center md:justify-center md:gap-3 md:px-16 md:py-20">
       {/* LEFT */}
       <div className="flex w-full flex-col gap-8 md:h-full md:justify-between md:px-5">
         <div className="grid grid-cols-2 gap-x-4 gap-y-2 font-hanken text-sm font-light text-[#6D625A] sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-between md:gap-3">
-          <p>About Us</p>
-          <p>Shopping Policy</p>
-          <p>Privacy</p>
-          <p>Cancellation Policy</p>
-          <p>Terms of Service</p>
-          <p>FAQs</p>
+          {dictionary.links.map((label) => (
+            <p key={label}>{label}</p>
+          ))}
         </div>
 
         <div className="font-hanken text-sm font-light text-[#9A9A9494]">
-          © 2025 Blachh Matcha
+          {dictionary.copyright}
         </div>
       </div>
 

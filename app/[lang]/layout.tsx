@@ -34,14 +34,17 @@ export default async function LocalizedLayout({
 
   return (
     <>
-      <Banner />
+      <Banner dictionary={dictionary.banner} />
       <Navbar
         currentCurrency={currencyPreference.currencyCode}
         lang={lang}
         dictionary={dictionary}
       />
       <main className="flex-1">{children}</main>
-      <Footer currentCurrency={currencyPreference.currencyCode} />
+      <Footer
+        currentCurrency={currencyPreference.currencyCode}
+        dictionary={dictionary.footer}
+      />
     </>
   );
 }

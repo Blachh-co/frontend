@@ -7,6 +7,8 @@ interface ProductQuantityStepperProps {
   onDecrease?: () => void;
   onIncrease?: () => void;
   minQuantity?: number;
+  decreaseLabel?: string;
+  increaseLabel?: string;
 }
 
 export function ProductQuantityStepper({
@@ -14,6 +16,8 @@ export function ProductQuantityStepper({
   onDecrease,
   onIncrease,
   minQuantity = 1,
+  decreaseLabel = "Decrease quantity",
+  increaseLabel = "Increase quantity",
 }: ProductQuantityStepperProps) {
   const [internalQuantity, setInternalQuantity] = useState(minQuantity);
   const quantity = quantityProp ?? internalQuantity;
@@ -42,7 +46,7 @@ export function ProductQuantityStepper({
         type="button"
         onClick={handleDecrease}
         className="flex w-[30px] shrink-0 cursor-pointer items-center justify-center self-stretch rounded-l-[2px] border border-r-0 border-[#1C1C1A80] font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A] transition-colors duration-200 hover:bg-[#f3ede6]"
-        aria-label="Decrease quantity"
+        aria-label={decreaseLabel}
       >
         -
       </button>
@@ -53,7 +57,7 @@ export function ProductQuantityStepper({
         type="button"
         onClick={handleIncrease}
         className="flex w-[30px] shrink-0 cursor-pointer items-center justify-center self-stretch rounded-r-[2px] border border-l-0 border-[#1C1C1A80] font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A] transition-colors duration-200 hover:bg-[#f3ede6]"
-        aria-label="Increase quantity"
+        aria-label={increaseLabel}
       >
         +
       </button>

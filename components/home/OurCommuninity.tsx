@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Dictionary } from "@/lib/i18n";
 
 import "swiper/css";
 
@@ -28,30 +29,26 @@ const stagger = {
   },
 };
 
-const communityCards = [
-  {
-    title: "Morning pour",
-    videoSrc: "https://assets.mixkit.co/videos/43936/43936-720.mp4",
-  },
-  {
-    title: "Cafe corner",
-    videoSrc: "https://assets.mixkit.co/videos/41220/41220-720.mp4",
-  },
-  {
-    title: "Daily ritual",
-    videoSrc: "https://assets.mixkit.co/videos/88006/88006-720.mp4",
-  },
-  {
-    title: "Slow living",
-    videoSrc: "https://assets.mixkit.co/videos/4385/4385-720.mp4",
-  },
-];
+const communityCardVideos = [
+  "https://assets.mixkit.co/videos/43936/43936-720.mp4",
+  "https://assets.mixkit.co/videos/41220/41220-720.mp4",
+  "https://assets.mixkit.co/videos/88006/88006-720.mp4",
+  "https://assets.mixkit.co/videos/4385/4385-720.mp4",
+] as const;
 
-export function OurCommuninity() {
+interface OurCommuninityProps {
+  dictionary: Dictionary["home"]["community"];
+}
+
+export function OurCommuninity({ dictionary }: OurCommuninityProps) {
   const router = useRouter();
   const onClickFollowButton = () => {
     router.push("https://instagram.com/blachh.co");
   };
+  const communityCards = dictionary.cardTitles.map((title, index) => ({
+    title,
+    videoSrc: communityCardVideos[index] ?? communityCardVideos[0],
+  }));
 
   const renderCard = (
     card: (typeof communityCards)[number],
@@ -87,16 +84,15 @@ export function OurCommuninity() {
         className="mx-auto flex w-full max-w-7xl flex-col items-center"
       >
         <motion.p variants={fadeUp} className="font-hanken text-xs leading-6 uppercase tracking-[0.18em] text-[#9A9A94] sm:text-sm">
-          OUR COMMUNITY
+          {dictionary.eyebrow}
         </motion.p>
 
         <motion.h1 variants={fadeUp} className="mt-3 text-center font-libre text-[2rem] leading-tight text-[#2B211B] sm:text-[2.5rem] md:mt-2.5 md:text-[52px] md:leading-[1.08]">
-          Join the Blachh Community
+          {dictionary.title}
         </motion.h1>
 
         <motion.h2 variants={fadeUp} className="mt-3 max-w-xl text-center font-hanken text-sm leading-6 text-[#5A5A55] sm:text-[15px] md:mt-3.5 md:leading-7">
-          Snapshots of matcha rituals and slow living moments from our
-          community
+          {dictionary.description}
         </motion.h2>
 
         <motion.div variants={fadeUp} className="mt-8 w-full md:hidden">
@@ -126,22 +122,22 @@ export function OurCommuninity() {
         <div className="flex flex-col items-center justify-center gap-4 md:mb-6 md:flex-row md:gap-2.5">
           <Image
             src="/mascots/BLACHH-02.png"
-            alt="Blachh Mascot"
+            alt={dictionary.mascotAlt}
             width={84}
             height={80}
             className="h-auto w-16 shrink-0 md:w-[84px]"
           />
 
           <p className="text-center font-hanken text-sm leading-6 text-[#5A5A55] md:text-left md:leading-6.75">
-            Follow us on Instagram{" "}
-            <span className="font-medium text-[#2D4A2A]">@blachh.co</span>
+            {dictionary.followText}{" "}
+            <span className="font-medium text-[#2D4A2A]">{dictionary.instagramHandle}</span>
           </p>
 
           <button
             className="h-11 w-full cursor-pointer rounded-sm border-[1.5px] border-[#FFCAD4] bg-[#FFCAD4B2] px-5 text-sm text-[#2B211B] sm:w-auto md:h-6.75 md:min-w-20 md:px-4"
             onClick={onClickFollowButton}
           >
-            Follow
+            {dictionary.followCta}
           </button>
         </div>
       </motion.div>

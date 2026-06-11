@@ -1,0 +1,402 @@
+{
+  "nav": {
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "locale": {
+    "en": "English",
+    "th": "Thai",
+    "sv": "Swedish"
+  },
+  "a11y": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "goHome": "Go to homepage",
+    "openShoppingBag": "Open shopping bag",
+    "closeShoppingBag": "Close shopping bag",
+    "shoppingBag": "Shopping bag",
+    "openLanguageMenu": "Open language menu",
+    "openFilters": "Open filters",
+    "closeFilters": "Close filters",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "showPreviousTestimonials": "Show previous testimonials",
+    "showMoreTestimonials": "Show more testimonials",
+    "visitInstagram": "Visit Blachh on Instagram",
+    "visitTiktok": "Visit Blachh on TikTok",
+    "emailBlachh": "Email Blachh"
+  },
+  "banner": {
+    "message": "Free shipping on orders over 800 kr · Pre-order now · Ships in 7-14 days"
+  },
+  "footer": {
+    "links": [
+      "About Us",
+      "Shopping Policy",
+      "Privacy",
+      "Cancellation Policy",
+      "Terms of Service",
+      "FAQs"
+    ],
+    "copyright": "© 2025 Blachh Matcha"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Ceremonial Grade · Stone-Milled in Japan",
+      "title": "Made for slow mornings.",
+      "description": "Matcha that tastes like the morning you've been looking for.",
+      "rating": "★★★★★ 4.9 · 134 reviews",
+      "cta": "Shop Now"
+    },
+    "collections": {
+      "eyebrow": "BROWSE PRODUCTS",
+      "title": "Find what speaks to your ritual.",
+      "cta": "VIEW ALL",
+      "sizeDefault": "Default",
+      "priceFrom": "From"
+    },
+    "community": {
+      "eyebrow": "OUR COMMUNITY",
+      "title": "Join the Blachh Community",
+      "description": "Snapshots of matcha rituals and slow living moments from our community",
+      "cardTitles": [
+        "Morning pour",
+        "Cafe corner",
+        "Daily ritual",
+        "Slow living"
+      ],
+      "followText": "Follow us on Instagram",
+      "instagramHandle": "@blachh.co",
+      "followCta": "Follow",
+      "mascotAlt": "Blachh Mascot"
+    },
+    "testimonials": {
+      "titleStart": "Loved by",
+      "titleAccentOne": "matcha",
+      "titleAccentTwo": "lovers",
+      "titleEnd": "across the world.",
+      "description": "Real reviews from our community, people who love slow mornings, quality, matcha, and a little joy from Japan.",
+      "items": [
+        {
+          "imageUrl": "/mock/testimonial-person-1.png",
+          "review": "The quality blew me away, rich, smooth, and nothing like supermarket matcha. This is now my daily ritual.",
+          "reviewerName": "Kaito S."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-2.png",
+          "review": "Ordered the Sakura Matcha and I'm obsessed. The packaging is so cute and the flavor is so smooth!",
+          "reviewerName": "Mia K."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-3.png",
+          "review": "The matcha aesthetic is everything. Cute packaging, great quality. My morning routine is so much better now.",
+          "reviewerName": "Yuna L."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-1.png",
+          "review": "I bought a tin for myself and ended up ordering two more as gifts. It feels premium without being fussy.",
+          "reviewerName": "Elena R."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-2.png",
+          "review": "Creamy, vibrant, and easy to whisk. It genuinely made me slow down and enjoy breakfast again.",
+          "reviewerName": "Noah T."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-3.png",
+          "review": "Every detail feels intentional, from the color to the taste. The whole experience feels calm and elevated.",
+          "reviewerName": "Aiko M."
+        }
+      ]
+    }
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "Our Story",
+      "titleLineOne": "A calmer start,",
+      "titleLineTwo": "shaped by matcha.",
+      "description": "Blachh is built around the feeling that a daily ritual can be both beautiful and useful. We care about calm flavor, soft design, and the kind of product you reach for without thinking twice.",
+      "badges": [
+        "Ceremonial Grade",
+        "Stone-Milled in Japan",
+        "Quiet Daily Ritual"
+      ],
+      "imageAlt": "Matcha bowl prepared as part of a calm morning ritual"
+    },
+    "why": {
+      "eyebrow": "Why Blachh",
+      "title": "A softer approach to product and routine.",
+      "paragraphs": [
+        "Blachh starts from a simple idea: small rituals shape the tone of the day. Matcha is the center of that ritual, but the experience around it matters too, the color, the pace, the bowl, the moment of pause before everything else starts.",
+        "We wanted the brand to feel refined without being distant. Clean taste, quiet visuals, and a mood that sits somewhere between a Japanese tea ritual and a very modern slow morning at home."
+      ],
+      "quote": "The goal is not just good matcha. It is a better feeling around the moment you make it."
+    },
+    "craft": {
+      "imageEyebrow": "Craft & sourcing",
+      "imageTitle": "Matcha chosen for flavor, texture, and a cup you want again tomorrow.",
+      "imageAlt": "Ceramic bowls and tea ware arranged on a wooden table",
+      "eyebrow": "The product",
+      "title": "Quality matters most when the ritual becomes daily.",
+      "description": "A beautiful ritual does not last if the cup disappoints. Blachh is shaped around matcha that feels smooth, vibrant, and easy to keep returning to, whether it is whisked traditionally or folded into a quieter modern routine.",
+      "highlights": [
+        "Ceremonial-grade matcha chosen for a smooth, rounded finish.",
+        "Stone-milled tradition and a flavor profile made for everyday rituals.",
+        "A visual world inspired by quiet mornings, ceramics, and slow living."
+      ]
+    },
+    "cta": {
+      "eyebrow": "Begin the ritual",
+      "title": "Explore the matcha made for slow mornings.",
+      "description": "Start with the product, then make the routine your own.",
+      "button": "Shop the collection"
+    }
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "WHOLESALE & PARTNERSHIPS",
+      "title": "Let's bring Blachh to your shelves.",
+      "description": "For cafes, boutiques, hospitality spaces, and concept stores with a slower point of view. We partner with stockists who value quality, ritual, and a clear visual identity.",
+      "primaryCta": "Send an inquiry",
+      "secondaryCta": "wholesale@blachh.co",
+      "details": [
+        {
+          "label": "Best for",
+          "value": "Cafes, boutiques, concept stores, hotels, and wellness spaces"
+        },
+        {
+          "label": "Region",
+          "value": "Sweden, Europe, and selected international inquiries"
+        },
+        {
+          "label": "Direct email",
+          "value": "wholesale@blachh.co"
+        }
+      ],
+      "imageAlt": "Cafe interior with display shelves and counter"
+    },
+    "benefits": {
+      "eyebrow": "Why partner with us",
+      "title": "A wholesale page that feels closer to a brand invitation.",
+      "description": "The right stockists usually want the same things your customers do: quality, clarity, and a product that looks intentional in the room.",
+      "cards": [
+        {
+          "title": "Ceremonial-grade quality",
+          "description": "Stone-milled matcha designed for calm menus, considered retail shelves, and premium gifting moments."
+        },
+        {
+          "title": "Display-ready brand presence",
+          "description": "A visual identity built to sit naturally in boutiques, cafes, studios, and hospitality spaces."
+        },
+        {
+          "title": "Thoughtful wholesale support",
+          "description": "Sampling, launch guidance, and clear communication for partners who care about the full customer experience."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Inquiry form",
+      "title": "Tell us a little about your space.",
+      "description": "Share your business, location, and what kind of partnership you have in mind. We can follow up with availability, pricing, and next steps.",
+      "whatWeShareTitle": "What we can share",
+      "whatWeShareItems": [
+        "Wholesale pricing and opening order guidance",
+        "Lead times and shipping regions",
+        "Sampling and launch support for selected partners",
+        "Brand assets for retail or menu presentation"
+      ],
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Your full name"
+        },
+        "business": {
+          "label": "Business / Store",
+          "placeholder": "Studio, cafe, boutique, or hotel"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "you@business.com"
+        },
+        "website": {
+          "label": "Website or Instagram",
+          "placeholder": "Website URL or @handle"
+        },
+        "location": {
+          "label": "Location",
+          "placeholder": "City, country"
+        },
+        "orderInterest": {
+          "label": "Estimated order interest",
+          "placeholder": "Opening order size or expected cadence"
+        }
+      },
+      "businessTypeLabel": "Business type",
+      "businessTypes": [
+        "Cafe",
+        "Boutique",
+        "Hotel or hospitality",
+        "Wellness studio",
+        "Concept store",
+        "Other"
+      ],
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us about your store, menu, audience, or the kind of partnership you have in mind.",
+      "notice": "This form is a design-first inquiry surface for now. Direct email remains the fastest path for immediate wholesale requests.",
+      "submit": "Submit inquiry"
+    },
+    "emailCta": {
+      "mascotAlt": "Blachh mascot",
+      "title": "Prefer email?",
+      "description": "Reach us directly at wholesale@blachh.co or visit @blachh.co for the broader world around the brand.",
+      "button": "Email wholesale team"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "categories": {
+      "all": "All products",
+      "matcha": "Matcha",
+      "books": "Books",
+      "toys": "Toys"
+    },
+    "filters": {
+      "title": "Filters",
+      "subtitle": "Refine products",
+      "size": "Size",
+      "price": "Price",
+      "reset": "Reset",
+      "apply": "Apply",
+      "sizeOptions": {
+        "all": "All sizes",
+        "small": "Up to 30g",
+        "medium": "31g - 50g",
+        "large": "Above 50g"
+      },
+      "priceOptions": {
+        "all": "All prices",
+        "sek": {
+          "under": "Under 350 kr",
+          "between": "350 kr - 500 kr",
+          "over": "500 kr and above"
+        },
+        "eur": {
+          "under": "Under 30 €",
+          "between": "30 € - 45 €",
+          "over": "45 € and above"
+        },
+        "usd": {
+          "under": "Under $35",
+          "between": "$35 - $50",
+          "over": "$50 and above"
+        }
+      }
+    },
+    "labels": {
+      "sizeDefault": "Default",
+      "priceFrom": "From"
+    }
+  },
+  "product": {
+    "emptyState": "No product available.",
+    "freeShippingPrefix": "Free shipping on orders over",
+    "reviewSummary": {
+      "count": "128 reviews",
+      "sectionTitle": "Customer Reviews",
+      "basedOn": "Based on 4,934 reviews"
+    },
+    "purchase": {
+      "weight": "Weight",
+      "sizeDefault": "Default",
+      "addToCart": "Add to cart",
+      "adding": "Adding..."
+    },
+    "tabs": {
+      "items": [
+        {
+          "id": "description",
+          "label": "Description",
+          "paragraphs": [
+            "Grown in the misty mountains of Kagoshima, this first harvest matcha is crafted from Okumidori and Saemidori cultivars. With its deep umami, smooth texture, and hints of hinoki forest, it brings clarity and calm to your day.",
+            "Its profile stays smooth and balanced in a straight whisked bowl, with enough depth to feel layered without turning bitter.",
+            "This is the kind of matcha that works well as an everyday ritual pick when you want clarity, sweetness, and a clean texture."
+          ]
+        },
+        {
+          "id": "brewing-notes",
+          "label": "Brewing notes",
+          "paragraphs": [
+            "Sift 1 to 2 teaspoons into a warm bowl to remove clumps and keep the final texture even.",
+            "Add a small amount of water around 75 to 80 degrees Celsius, then whisk in quick zig-zag motions until a fine foam forms.",
+            "For a lighter cup, use more water. For a richer cup, keep the water lower and whisk for a denser body."
+          ]
+        },
+        {
+          "id": "storage",
+          "label": "Storage",
+          "paragraphs": [
+            "Keep the tin sealed tightly and store it somewhere cool, dry, and away from direct sunlight.",
+            "Once opened, avoid heat and moisture exposure so the color and aroma stay fresh for longer.",
+            "For best flavor, finish the tin within a few weeks of opening and let it return to room temperature before use if chilled."
+          ]
+        }
+      ]
+    },
+    "reviewCarousel": {
+      "verifiedPurchase": "Verified Purchase",
+      "items": [
+        {
+          "title": "The best daily matcha",
+          "body": "Smooth, vibrant, and naturally sweet with no bitterness. I drink it every morning and it sets the tone for a calm and focused day.",
+          "name": "Sophie L."
+        },
+        {
+          "title": "Beautifully balanced",
+          "body": "The umami is deep and rounded, and the finish stays clean. It feels refined without being too delicate for everyday drinking.",
+          "name": "Marcus T."
+        },
+        {
+          "title": "Soft and grounding",
+          "body": "There is a calm forest note in this that really stands out. The texture is silky and the sweetness comes through naturally.",
+          "name": "Elin R."
+        },
+        {
+          "title": "Worth the ritual",
+          "body": "Whisks easily, looks vivid in the bowl, and stays smooth even when I make it slightly stronger. Easily one of my favorites.",
+          "name": "Daniel K."
+        },
+        {
+          "title": "Very easy to love",
+          "body": "No harsh edge, just a steady umami and a mellow finish. It gives me a focused start without feeling too intense.",
+          "name": "Ava M."
+        }
+      ]
+    }
+  },
+  "cart": {
+    "eyebrow": "Shopping bag",
+    "title": "Review your order",
+    "continueShopping": "Continue shopping",
+    "empty": "Your bag is empty.",
+    "quantity": "Quantity",
+    "items": "Items",
+    "subtotal": "Subtotal",
+    "checkoutWithShopify": "Checkout with Shopify",
+    "defaultVariant": "Default variant",
+    "drawer": {
+      "title": "Shopping bag",
+      "emptyTitle": "Your bag is empty",
+      "emptyDescription": "Add a few products to see them here.",
+      "emptySupport": "Your selected matcha and accessories will appear in this drawer.",
+      "productSingular": "product",
+      "productPlural": "products",
+      "defaultSize": "Default size",
+      "viewBag": "View bag",
+      "checkout": "Checkout",
+      "updating": "Updating...",
+      "removeItemPrefix": "Remove",
+      "removeItemSuffix": "from shopping bag"
+    }
+  }
+}

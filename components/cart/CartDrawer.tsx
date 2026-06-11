@@ -9,11 +9,16 @@ import { Trash2, X } from "lucide-react";
 
 import { ProductQuantityStepper } from "@/components/products/ProductQuantityStepper";
 import { formatMoney } from "@/lib/currency";
-import { localizeHref } from "@/lib/i18n";
+import { localizeHref, type Dictionary } from "@/lib/i18n";
 
 import { useCart } from "./CartProvider";
 
-export function CartDrawer() {
+interface CartDrawerProps {
+  dictionary: Dictionary["cart"];
+  a11y: Dictionary["a11y"];
+}
+
+export function CartDrawer({ dictionary, a11y }: CartDrawerProps) {
   const {
     cart,
     closeCart,
@@ -64,7 +69,7 @@ export function CartDrawer() {
         >
           <button
             type="button"
-            aria-label="Close shopping bag"
+            aria-label={a11y.closeShoppingBag}
             className="absolute inset-0 bg-[#1C1C1A]/35"
             onClick={closeCart}
           />
@@ -75,24 +80,28 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            aria-label="Shopping bag"
+            aria-label={a11y.shoppingBag}
           >
             <div className="flex items-center justify-between border-b border-[#E6DED5] px-5 py-5">
               <div className="space-y-1">
                 <p className="font-hanken text-[13px] uppercase tracking-[0.2em] text-[#7D746D]">
-                  Shopping bag
+                  {dictionary.drawer.title}
                 </p>
                 <p className="font-libre text-[28px] leading-none text-[#1C1C1A]">
                   {cart.lines.length === 0
-                    ? "Your bag is empty"
-                    : `${cart.lines.length} product${cart.lines.length === 1 ? "" : "s"}`}
+                    ? dictionary.drawer.emptyTitle
+                    : `${cart.lines.length} ${
+                        cart.lines.length === 1
+                          ? dictionary.drawer.productSingular
+                          : dictionary.drawer.productPlural
+                      }`}
                 </p>
               </div>
 
               <button
                 type="button"
                 onClick={closeCart}
-                aria-label="Close shopping bag"
+                aria-label={a11y.closeShoppingBag}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD3C9] text-[#1C1C1A]"
               >
                 <X className="h-4 w-4" />
@@ -103,10 +112,10 @@ export function CartDrawer() {
               {cart.lines.length === 0 ? (
                 <div className="flex h-full flex-col items-start justify-center gap-3">
                   <p className="font-libre text-[22px] leading-tight text-[#1C1C1A]">
-                    Add a few products to see them here.
+                    {dictionary.drawer.emptyDescription}
                   </p>
                   <p className="font-hanken text-sm text-[#6F675F]">
-                    Your selected matcha and accessories will appear in this drawer.
+                    {dictionary.drawer.emptySupport}
                   </p>
                 </div>
               ) : (
@@ -130,7 +139,7 @@ export function CartDrawer() {
                         <div className="flex min-w-0 flex-1 flex-col gap-3">
                           <div className="space-y-1">
                             <p className="font-hanken text-[12px] uppercase tracking-[0.14em] text-[#8D837B]">
-                              {item.variantTitle || "Default size"}
+                              {item.variantTitle || dictionary.drawer.defaultSize}
                             </p>
                             <p className="font-hanken text-[20px] font-bold uppercase leading-tight text-[#1C1C1A]">
                               {item.productTitle}
@@ -146,12 +155,14 @@ export function CartDrawer() {
                               onDecrease={() => void decrementItem(item.id, item.quantity)}
                               onIncrease={() => void incrementItem(item.id, item.quantity)}
                               minQuantity={0}
+                              decreaseLabel={a11y.decreaseQuantity}
+                              increaseLabel={a11y.increaseQuantity}
                             />
 
                             <button
                               type="button"
                               onClick={() => void removeItem(item.id)}
-                              aria-label={`Remove ${item.productTitle} from shopping bag`}
+                              aria-label={`${dictionary.drawer.removeItemPrefix} ${item.productTitle} ${dictionary.drawer.removeItemSuffix}`}
                               className="flex h-10 w-10 cursor-pointer items-center justify-center text-[#C94F4F] transition-colors hover:text-[#A53A3A]"
                             >
                               <Trash2 className="h-4 w-4" />
@@ -173,7 +184,7 @@ export function CartDrawer() {
               ) : null}
               <div className="mb-4 flex items-center justify-between">
                 <p className="font-hanken text-[13px] uppercase tracking-[0.18em] text-[#7D746D]">
-                  Subtotal
+                  {dictionary.subtotal}
                 </p>
                 <p className="font-libre text-[24px] leading-none text-[#1C1C1A]">
                   {formattedSubtotal}
@@ -186,7 +197,7 @@ export function CartDrawer() {
                   onClick={closeCart}
                   className="w-full rounded-full border border-[#1C1C1A] px-4 py-3 text-center font-hanken text-sm uppercase tracking-[0.16em] text-[#1C1C1A]"
                 >
-                  View bag
+                  {dictionary.drawer.viewBag}
                 </Link>
                 <button
                   type="button"
@@ -200,7 +211,7 @@ export function CartDrawer() {
                   }}
                   className="w-full rounded-full bg-[#1C1C1A] px-4 py-3 font-hanken text-sm uppercase tracking-[0.16em] text-[#F5F0E8] transition-opacity disabled:cursor-not-allowed disabled:opacity-45"
                 >
-                  {isPending ? "Updating..." : "Checkout"}
+                  {isPending ? dictionary.drawer.updating : dictionary.drawer.checkout}
                 </button>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { CartPageContent } from "@/components/cart/CartPageContent";
+import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { getRequestCartState } from "@/lib/shopify-cart-server";
 
 export const dynamic = "force-dynamic";
@@ -15,11 +16,13 @@ export default async function LocalizedCartPage({
   params,
 }: LocalizedCartPageProps) {
   const { lang } = await params;
-  const { cart } = await getRequestCartState();
 
-  if (!lang) {
+  if (!isValidLocale(lang)) {
     notFound();
   }
 
-  return <CartPageContent lang={lang} initialCart={cart} />;
+  const dictionary = await getDictionary(lang);
+  const { cart } = await getRequestCartState();
+
+  return <CartPageContent lang={lang} initialCart={cart} dictionary={dictionary.cart} />;
 }

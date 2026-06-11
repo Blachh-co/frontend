@@ -1,13 +1,15 @@
-import { ProductDetailTabs } from "@/components/products/ProductDetailTabs";
-import { ProductImageGallery } from "@/components/products/ProductImageGallery";
-import { ProductDetailPurchasePanel } from "@/components/products/ProductDetailPurchasePanel";
-import { ProductReviewCarousel } from "@/components/products/ProductReviewCarousel";
-import { getFreeShippingLabel, type SupportedCurrencyCode } from "@/lib/currency";
-import { getCurrencyPreferenceFromRequest } from "@/lib/currency-server";
-import { getFeaturedProduct } from "@/lib/products";
+import { notFound } from "next/navigation";
 import { Star, Truck } from "lucide-react";
 
-const reviewCounts = 128;
+import { ProductDetailPurchasePanel } from "@/components/products/ProductDetailPurchasePanel";
+import { ProductDetailTabs } from "@/components/products/ProductDetailTabs";
+import { ProductImageGallery } from "@/components/products/ProductImageGallery";
+import { ProductReviewCarousel } from "@/components/products/ProductReviewCarousel";
+import { formatMoney, type SupportedCurrencyCode } from "@/lib/currency";
+import { getCurrencyPreferenceFromRequest } from "@/lib/currency-server";
+import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
+import { getFeaturedProduct } from "@/lib/products";
+
 const rating = 4.9;
 const ratingBreakdown = [
   { rating: 5, fillPercent: 84, reviewsCount: 4_142 },
@@ -17,18 +19,54 @@ const ratingBreakdown = [
   { rating: 1, fillPercent: 0.5, reviewsCount: 28 },
 ] as const;
 
+const freeShippingThresholdByCurrency: Record<SupportedCurrencyCode, number> = {
+  SEK: 500,
+  EUR: 45,
+  USD: 50,
+};
+
 export const dynamic = "force-dynamic";
 
-export default async function LocalizedProductDetailPage() {
+interface LocalizedProductDetailPageProps {
+  params: Promise<{
+    lang: string;
+  }>;
+}
+
+function getNumberLocale(lang: Locale) {
+  if (lang === "th") {
+    return "th-TH";
+  }
+
+  if (lang === "sv") {
+    return "sv-SE";
+  }
+
+  return "en-US";
+}
+
+export default async function LocalizedProductDetailPage({
+  params,
+}: LocalizedProductDetailPageProps) {
+  const { lang } = await params;
+
+  if (!isValidLocale(lang)) {
+    notFound();
+  }
+
   const currencyPreference = await getCurrencyPreferenceFromRequest();
-  const featuredProduct = await getFeaturedProduct(currencyPreference);
+  const [featuredProduct, dictionary] = await Promise.all([
+    getFeaturedProduct(currencyPreference),
+    getDictionary(lang),
+  ]);
+  const numberLocale = getNumberLocale(lang);
 
   if (!featuredProduct) {
     return (
       <div className="bg-[#F5F0E8] px-5 py-20">
         <div className="mx-auto max-w-[1440px]">
           <p className="font-libre text-[24px] text-[#1F1A17]">
-            No product available.
+            {dictionary.product.emptyState}
           </p>
         </div>
       </div>
@@ -59,28 +97,35 @@ export default async function LocalizedProductDetailPage() {
                   ))}
                 </div>
                 <p className="font-hanken text-[16px] font-normal leading-none text-[#5D5E5B]">
-                  {reviewCounts} reviews
+                  {dictionary.product.reviewSummary.count}
                 </p>
               </div>
             </div>
-            <ProductDetailPurchasePanel product={featuredProduct} />
+            <ProductDetailPurchasePanel
+              product={featuredProduct}
+              dictionary={dictionary.product.purchase}
+              a11y={dictionary.a11y}
+            />
             <div className="flex items-start justify-start gap-3 md:items-center md:gap-4">
               <Truck className="mt-1 h-6 w-6 shrink-0 text-[#5E554D] md:mt-0" />
               <p className="font-libre text-[14px] font-normal leading-6 text-[#5E554D] md:leading-[31px]">
-                {getFreeShippingLabel(
+                {`${dictionary.product.freeShippingPrefix} ${formatMoney(
+                  freeShippingThresholdByCurrency[
+                    featuredProduct.currency as SupportedCurrencyCode
+                  ],
                   featuredProduct.currency as SupportedCurrencyCode,
-                )}
+                )}`}
               </p>
             </div>
             <div className="my-[22px] w-full border-t border-black" />
-            <ProductDetailTabs />
+            <ProductDetailTabs dictionary={dictionary.product.tabs} />
           </section>
         </div>
       </div>
 
       <section className="flex flex-col border-t border-[#DCD0C3] bg-[#FAF1EA] px-5 py-10 md:px-[96px] md:py-[60px]">
         <h2 className="font-libre text-[30px] italic font-medium leading-[1.05] text-[#000] md:text-[36px] md:leading-[31px]">
-          Customer Reviews
+          {dictionary.product.reviewSummary.sectionTitle}
         </h2>
         <div className="mt-8 flex flex-col items-start justify-start gap-8 md:mt-9 md:flex-row md:items-center md:gap-[72px]">
           <div className="flex flex-col gap-5">
@@ -98,7 +143,7 @@ export default async function LocalizedProductDetailPage() {
               </div>
             </div>
             <p className="font-libre text-[14px] font-medium leading-[31px] text-[#020000]">
-              Based on 4,934 reviews
+              {dictionary.product.reviewSummary.basedOn}
             </p>
           </div>
           <div className="flex w-full flex-col md:w-auto">
@@ -120,13 +165,13 @@ export default async function LocalizedProductDetailPage() {
                   />
                 </div>
                 <p className="font-libre text-[14px] font-medium leading-[31px] text-[#5D5E5B]">
-                  {item.reviewsCount.toLocaleString("en-US")}
+                  {item.reviewsCount.toLocaleString(numberLocale)}
                 </p>
               </div>
             ))}
           </div>
         </div>
-        <ProductReviewCarousel />
+        <ProductReviewCarousel dictionary={dictionary.product.reviewCarousel} />
       </section>
     </>
   );

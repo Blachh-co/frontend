@@ -10,11 +10,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import type { Product, ProductCategory } from "@/components/products/productsData";
 import {
-  getPriceFilterConfig,
   getPriceFilterThresholds,
   type SupportedCurrencyCode,
 } from "@/lib/currency";
-import { localizeHref } from "@/lib/i18n";
+import { localizeHref, type Dictionary } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 import "swiper/css";
@@ -25,6 +24,8 @@ type PriceFilter = "all" | "under-350" | "350-500" | "500-plus";
 
 interface ProductsCatalogProps {
   products: Product[];
+  dictionary: Dictionary["products"];
+  a11y: Dictionary["a11y"];
 }
 
 interface FilterState {
@@ -33,15 +34,6 @@ interface FilterState {
 }
 
 const categoryOrder: CategoryOption[] = ["All products", "Matcha", "Books", "Toys"];
-
-const filterSections = {
-  size: [
-    { value: "all" as const, label: "All sizes" },
-    { value: "small" as const, label: "Up to 30g" },
-    { value: "medium" as const, label: "31g - 50g" },
-    { value: "large" as const, label: "Above 50g" },
-  ],
-};
 
 const defaultFilters: FilterState = {
   size: "all",
@@ -92,7 +84,7 @@ function getProductSizeLabel(product: Product): string {
   return `${sizes[0]}g - ${sizes[sizes.length - 1]}g`;
 }
 
-function getProductPriceLabel(product: Product): string {
+function getProductPriceLabel(product: Product, fromLabel: string): string {
   if (product.variants.length <= 1) {
     return product.formattedPrice;
   }
@@ -102,7 +94,7 @@ function getProductPriceLabel(product: Product): string {
   )[0];
 
   return lowestPriceVariant
-    ? `From ${lowestPriceVariant.formattedPrice}`
+    ? `${fromLabel} ${lowestPriceVariant.formattedPrice}`
     : product.formattedPrice;
 }
 
@@ -157,6 +149,7 @@ function FilterPanel({
   onApply,
   footerClassName,
   priceOptions,
+  dictionary,
 }: {
   draftFilters: FilterState;
   setDraftFilters: React.Dispatch<React.SetStateAction<FilterState>>;
@@ -164,14 +157,22 @@ function FilterPanel({
   onApply: () => void;
   footerClassName?: string;
   priceOptions: ReadonlyArray<{ value: string; label: string }>;
+  dictionary: Dictionary["products"]["filters"];
 }) {
+  const sizeOptions = [
+    { value: "all", label: dictionary.sizeOptions.all },
+    { value: "small", label: dictionary.sizeOptions.small },
+    { value: "medium", label: dictionary.sizeOptions.medium },
+    { value: "large", label: dictionary.sizeOptions.large },
+  ] as const;
+
   return (
     <>
       <div className="space-y-6 px-5 py-5">
         <FilterSection
-          title="Size"
+          title={dictionary.size}
           value={draftFilters.size}
-          options={filterSections.size}
+          options={sizeOptions}
           onChange={(nextValue) =>
             setDraftFilters((current) => ({
               ...current,
@@ -181,7 +182,7 @@ function FilterPanel({
         />
 
         <FilterSection
-          title="Price"
+          title={dictionary.price}
           value={draftFilters.price}
           options={priceOptions}
           onChange={(nextValue) =>
@@ -199,7 +200,7 @@ function FilterPanel({
           onClick={onReset}
           className="font-hanken text-sm uppercase tracking-[0.16em] text-[#6F675F] underline underline-offset-4"
         >
-          Reset
+          {dictionary.reset}
         </button>
 
         <button
@@ -207,7 +208,7 @@ function FilterPanel({
           onClick={onApply}
           className="w-full rounded-full bg-[#1C1C1A] px-4 py-3 font-hanken text-sm uppercase tracking-[0.16em] text-[#F5F0E8]"
         >
-          Apply
+          {dictionary.apply}
         </button>
       </div>
     </>
@@ -217,15 +218,17 @@ function FilterPanel({
 function FilterTrigger({
   activeCount,
   labelId,
+  label,
 }: {
   activeCount: number;
   labelId: string;
+  label: string;
 }) {
   return (
     <div className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[#D9D1C8] bg-[#FBF7F2] text-[#1C1C1A] shadow-[0_6px_18px_rgba(28,28,26,0.08)]">
       <SlidersHorizontal className="h-4 w-4" />
       <span id={labelId} className="sr-only">
-        Open filters
+        {label}
       </span>
       {activeCount > 0 ? (
         <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#1C1C1A] px-1 font-hanken text-[11px] text-[#F5F0E8]">
@@ -236,7 +239,11 @@ function FilterTrigger({
   );
 }
 
-export function ProductsCatalog({ products }: ProductsCatalogProps) {
+export function ProductsCatalog({
+  products,
+  dictionary,
+  a11y,
+}: ProductsCatalogProps) {
   const pathname = usePathname();
   const currentCurrency = (products[0]?.currency ?? "USD") as SupportedCurrencyCode;
   const [activeCategory, setActiveCategory] =
@@ -247,7 +254,43 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const desktopFilterLabelId = useId();
   const prefersReducedMotion = useReducedMotion();
-  const priceOptions = getPriceFilterConfig(currentCurrency);
+  const priceFilterLabels = dictionary.filters.priceOptions;
+  const priceOptions = [
+    { value: "all", label: priceFilterLabels.all },
+    {
+      value: "under-350",
+      label:
+        currentCurrency === "SEK"
+          ? priceFilterLabels.sek.under
+          : currentCurrency === "EUR"
+            ? priceFilterLabels.eur.under
+            : priceFilterLabels.usd.under,
+    },
+    {
+      value: "350-500",
+      label:
+        currentCurrency === "SEK"
+          ? priceFilterLabels.sek.between
+          : currentCurrency === "EUR"
+            ? priceFilterLabels.eur.between
+            : priceFilterLabels.usd.between,
+    },
+    {
+      value: "500-plus",
+      label:
+        currentCurrency === "SEK"
+          ? priceFilterLabels.sek.over
+          : currentCurrency === "EUR"
+            ? priceFilterLabels.eur.over
+            : priceFilterLabels.usd.over,
+    },
+  ] as const;
+  const categoryLabels: Record<CategoryOption, string> = {
+    "All products": dictionary.categories.all,
+    Matcha: dictionary.categories.matcha,
+    Books: dictionary.categories.books,
+    Toys: dictionary.categories.toys,
+  };
 
   const revealSection = {
     hidden: { opacity: 0 },
@@ -361,7 +404,7 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
             : "border-[#D9D1C8] bg-transparent text-[#6F675F]",
         )}
       >
-        {category}
+        {categoryLabels[category]}
       </button>
     );
   };
@@ -378,7 +421,7 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
           className="font-libre text-[2.25rem] leading-[0.95] text-[#1C1C1A] md:text-5xl md:leading-[31px]"
           variants={revealItem}
         >
-          All Products
+          {dictionary.title}
         </motion.h1>
 
         <motion.div className="md:hidden" variants={revealItem}>
@@ -398,12 +441,13 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
             <button
               type="button"
               onClick={openMobileFilter}
-              aria-label="Open filters"
+              aria-label={a11y.openFilters}
               className="absolute right-0 top-1/2 -translate-y-1/2"
             >
               <FilterTrigger
                 activeCount={activeFilterCount}
                 labelId={`${desktopFilterLabelId}-mobile`}
+                label={a11y.openFilters}
               />
             </button>
           </div>
@@ -413,18 +457,15 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
           className="hidden items-center justify-between md:flex"
           variants={revealItem}
         >
-          <div className="flex items-center gap-5">
-            <p className="font-hanken text-base text-[#1C1C1A]">All products</p>
-            <p className="font-hanken text-base text-[#1C1C1A99]">Matcha</p>
-            <p className="font-hanken text-base text-[#1C1C1A99]">Books</p>
-            <p className="font-hanken text-base text-[#1C1C1A99]">Toys</p>
+          <div className="flex items-center gap-3">
+            {categoryOrder.map((category) => renderCategoryButton(category))}
           </div>
 
           <button
             type="button"
             className="font-hanken text-[16px] uppercase text-black underline"
           >
-            Filter
+            {dictionary.filters.title}
           </button>
         </motion.div>
       </motion.section>
@@ -458,7 +499,8 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
                 {product.productName}
               </p>
               <p className="font-hanken text-[22px] leading-snug text-[#1C1C1A]">
-                {getProductSizeLabel(product)} - {getProductPriceLabel(product)}
+                {getProductSizeLabel(product).replace("Default", dictionary.labels.sizeDefault)} -{" "}
+                {getProductPriceLabel(product, dictionary.labels.priceFrom)}
               </p>
             </div>
 
@@ -477,7 +519,7 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
           >
             <motion.button
               type="button"
-              aria-label="Close filters"
+              aria-label={a11y.closeFilters}
               className="absolute inset-0 bg-[#1C1C1A]/30"
               onClick={closeMobileFilter}
               initial={{ opacity: 0 }}
@@ -495,14 +537,14 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
               <div className="flex items-center justify-between border-b border-[#E7DDD3] px-5 py-4">
                 <div>
                   <p className="font-hanken text-[13px] uppercase tracking-[0.18em] text-[#7D746D]">
-                    Filters
+                    {dictionary.filters.title}
                   </p>
                 </div>
 
                 <button
                   type="button"
                   onClick={closeMobileFilter}
-                  aria-label="Close filters"
+                  aria-label={a11y.closeFilters}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD3C9] text-[#1C1C1A]"
                 >
                   <X className="h-4 w-4" />
@@ -516,6 +558,7 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
                   onReset={() => setDraftFilters(defaultFilters)}
                   onApply={applyMobileFilters}
                   priceOptions={priceOptions}
+                  dictionary={dictionary.filters}
                   footerClassName="fixed inset-x-0 bottom-0 space-y-3 border-t border-[#E7DDD3] bg-[#F8F4EE] px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-4"
                 />
               </div>

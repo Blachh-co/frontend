@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 
 import { useCart } from "@/components/cart/CartProvider";
 import { ProductQuantityStepper } from "@/components/products/ProductQuantityStepper";
+import type { Dictionary } from "@/lib/i18n";
 import type {
   Product,
   ProductVariant,
@@ -12,10 +13,14 @@ import type {
 
 interface ProductDetailPurchasePanelProps {
   product: Product;
+  dictionary: Dictionary["product"]["purchase"];
+  a11y: Dictionary["a11y"];
 }
 
 export function ProductDetailPurchasePanel({
   product,
+  dictionary,
+  a11y,
 }: ProductDetailPurchasePanelProps) {
   const { addItem, isPending } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -37,7 +42,7 @@ export function ProductDetailPurchasePanel({
     <div className="flex flex-col gap-4">
       <div className="relative flex flex-col">
         <p className="font-libre text-[14px] font-normal leading-[31px] text-[#000]">
-          Weight
+          {dictionary.weight}
         </p>
         <button
           type="button"
@@ -47,7 +52,7 @@ export function ProductDetailPurchasePanel({
           aria-haspopup="listbox"
         >
           <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-            {selectedVariant.size > 0 ? `${selectedVariant.size}g` : "Default"}
+            {selectedVariant.size > 0 ? `${selectedVariant.size}g` : dictionary.sizeDefault}
           </span>
           <ChevronDown
             className={`h-5 w-5 text-[#1C1C1A] transition-transform ${
@@ -75,7 +80,7 @@ export function ProductDetailPurchasePanel({
                   aria-selected={isActive}
                 >
                   <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-                    {variant.size > 0 ? `${variant.size}g` : "Default"}
+                    {variant.size > 0 ? `${variant.size}g` : dictionary.sizeDefault}
                   </span>
                 </button>
               );
@@ -89,6 +94,8 @@ export function ProductDetailPurchasePanel({
           quantity={quantity}
           onDecrease={() => setQuantity((current) => Math.max(1, current - 1))}
           onIncrease={() => setQuantity((current) => current + 1)}
+          decreaseLabel={a11y.decreaseQuantity}
+          increaseLabel={a11y.increaseQuantity}
         />
         <button
           type="button"
@@ -97,7 +104,7 @@ export function ProductDetailPurchasePanel({
           className="flex h-[48px] w-full cursor-pointer items-center justify-center gap-1 bg-[#FFCAD4] px-4 transition-colors duration-200 hover:bg-[#f7b7c5] md:h-auto"
         >
           <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-            {isPending ? "Adding..." : "Add to cart"}
+            {isPending ? dictionary.adding : dictionary.addToCart}
           </span>
           <span className="h-[3px] w-[3px] rounded-full bg-[#1C1C1A]" />
           <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">

@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { LocalizedLink } from "@/components/LocalizedLink";
 import type { Product } from "@/components/products/productsData";
+import type { Dictionary } from "@/lib/i18n";
 
 import "swiper/css";
 
@@ -26,21 +27,28 @@ const highlightedProductNames = [
 
 interface CollectionsProps {
   products: Product[];
+  dictionary: Dictionary["home"]["collections"];
 }
 
-function getProductSizeLabel(product: Product): string {
+function getProductSizeLabel(
+  product: Product,
+  dictionary: Dictionary["home"]["collections"],
+): string {
   const sizes = [...new Set(product.variants.map((variant) => variant.size))].sort(
     (left, right) => left - right,
   );
 
   if (sizes.length <= 1) {
-    return `${product.size}g`;
+    return product.size > 0 ? `${product.size}g` : dictionary.sizeDefault;
   }
 
   return `${sizes[0]}g - ${sizes[sizes.length - 1]}g`;
 }
 
-function getProductPriceLabel(product: Product): string {
+function getProductPriceLabel(
+  product: Product,
+  dictionary: Dictionary["home"]["collections"],
+): string {
   if (product.variants.length <= 1) {
     return product.formattedPrice;
   }
@@ -50,11 +58,11 @@ function getProductPriceLabel(product: Product): string {
   )[0];
 
   return lowestPriceVariant
-    ? `From ${lowestPriceVariant.formattedPrice}`
+    ? `${dictionary.priceFrom} ${lowestPriceVariant.formattedPrice}`
     : product.formattedPrice;
 }
 
-export function Collections({ products }: CollectionsProps) {
+export function Collections({ products, dictionary }: CollectionsProps) {
   const highlightedProducts = highlightedProductNames
     .map((productName) =>
       products.find((product) => product.productName === productName),
@@ -83,12 +91,12 @@ export function Collections({ products }: CollectionsProps) {
       </p>
 
       <p className="mt-1 font-hanken text-[12px] leading-[27px] font-light text-[#9A9A94]">
-        {getProductSizeLabel(product)}
+        {getProductSizeLabel(product, dictionary)}
       </p>
 
       <div className="flex items-center justify-between">
         <p className="font-hanken text-[12px] leading-[27px] font-normal text-[#6F8B5E]">
-          {getProductPriceLabel(product)}
+          {getProductPriceLabel(product, dictionary)}
         </p>
 
         <MoveRight className="h-6 w-6 text-black" />
@@ -100,11 +108,11 @@ export function Collections({ products }: CollectionsProps) {
     <section className="bg-[#F7F3EE]">
       <div className="flex flex-col px-5 py-14 sm:px-6 md:px-[64px] md:py-[80px]">
         <p className="font-hanken text-[11px] leading-[31px] font-normal uppercase text-[#9A9A94]">
-          BROWSE PRODUCTS
+          {dictionary.eyebrow}
         </p>
 
         <h2 className="mt-3 max-w-[480px] font-libre text-[2rem] leading-tight font-normal text-[#1C1C1A] sm:text-[2.5rem] md:text-[52px] md:leading-[60px]">
-          Find what speaks to your ritual.
+          {dictionary.title}
         </h2>
 
         <LocalizedLink
@@ -113,7 +121,7 @@ export function Collections({ products }: CollectionsProps) {
           className="mt-5 inline-flex w-fit items-center gap-2 rounded-sm px-1 py-1.5"
         >
           <span className="font-hanken text-[13px] leading-[27px] font-normal uppercase text-black underline">
-            VIEW ALL
+            {dictionary.cta}
           </span>
 
           <ArrowRight

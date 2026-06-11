@@ -1,68 +1,14 @@
+import en from "@/messages/en.json";
+import sv from "@/messages/sv.json";
+import th from "@/messages/th.json";
+
 export const locales = ["en", "th", "sv"] as const;
 
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
 
-const dictionaries = {
-  en: {
-    nav: {
-      shop: "Shop",
-      about: "About",
-      contact: "Contact",
-    },
-    locale: {
-      en: "English",
-      th: "Thai",
-      sv: "Swedish",
-    },
-    a11y: {
-      openMenu: "Open menu",
-      closeMenu: "Close menu",
-      goHome: "Go to homepage",
-      openShoppingBag: "Open shopping bag",
-      openLanguageMenu: "Open language menu",
-    },
-  },
-  th: {
-    nav: {
-      shop: "ร้านค้า",
-      about: "เกี่ยวกับ",
-      contact: "ติดต่อ",
-    },
-    locale: {
-      en: "อังกฤษ",
-      th: "ไทย",
-      sv: "สวีเดน",
-    },
-    a11y: {
-      openMenu: "เปิดเมนู",
-      closeMenu: "ปิดเมนู",
-      goHome: "ไปหน้าแรก",
-      openShoppingBag: "เปิดถุงช้อปปิ้ง",
-      openLanguageMenu: "เปิดเมนูภาษา",
-    },
-  },
-  sv: {
-    nav: {
-      shop: "Butik",
-      about: "Om",
-      contact: "Kontakt",
-    },
-    locale: {
-      en: "Engelska",
-      th: "Thailändska",
-      sv: "Svenska",
-    },
-    a11y: {
-      openMenu: "Öppna meny",
-      closeMenu: "Stäng meny",
-      goHome: "Gå till startsidan",
-      openShoppingBag: "Öppna shoppingväska",
-      openLanguageMenu: "Öppna språkmeny",
-    },
-  },
-} as const;
+const dictionaries = { en, th, sv } as const;
 
 export type Dictionary = (typeof dictionaries)[Locale];
 

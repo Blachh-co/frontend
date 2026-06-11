@@ -7,7 +7,7 @@ import {
   isValidLocale,
   localizeHref,
   replaceLocaleInPathname,
-} from "./i18n.ts";
+} from "./i18n";
 
 test("isValidLocale only accepts supported locales", () => {
   assert.equal(isValidLocale("en"), true);
@@ -37,4 +37,20 @@ test("getDictionary returns translated navigation labels", async () => {
   assert.equal(en.nav.shop, "Shop");
   assert.equal(th.nav.about, "เกี่ยวกับ");
   assert.equal(sv.nav.contact, "Kontakt");
+});
+
+test("getDictionary returns translated page content from locale dictionaries", async () => {
+  const en = await getDictionary("en");
+  const th = await getDictionary("th");
+  const sv = await getDictionary("sv");
+
+  assert.equal(en.home.hero.title, "Made for slow mornings.");
+  assert.equal(th.home.hero.cta, "เลือกซื้อเลย");
+  assert.equal(sv.contact.hero.eyebrow, "PARTNER OCH GROSSIST");
+  assert.equal(en.product.tabs.items.length, 3);
+  assert.equal(th.cart.title, "ตรวจสอบคำสั่งซื้อของคุณ");
+  assert.equal(
+    sv.banner.message,
+    "Fri frakt vid bestallningar over 800 kr · Forhandsboka nu · Skickas inom 7-14 dagar",
+  );
 });

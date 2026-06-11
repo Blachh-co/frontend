@@ -2,38 +2,17 @@
 
 import { CircleCheck, Star } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Dictionary } from "@/lib/i18n";
 
 import "swiper/css";
 
-const reviews = [
-  {
-    title: "The best daily matcha",
-    body: "Smooth, vibrant, and naturally sweet with no bitterness. I drink it every morning and it sets the tone for a calm and focused day.",
-    name: "Sophie L.",
-  },
-  {
-    title: "Beautifully balanced",
-    body: "The umami is deep and rounded, and the finish stays clean. It feels refined without being too delicate for everyday drinking.",
-    name: "Marcus T.",
-  },
-  {
-    title: "Soft and grounding",
-    body: "There is a calm forest note in this that really stands out. The texture is silky and the sweetness comes through naturally.",
-    name: "Elin R.",
-  },
-  {
-    title: "Worth the ritual",
-    body: "Whisks easily, looks vivid in the bowl, and stays smooth even when I make it slightly stronger. Easily one of my favorites.",
-    name: "Daniel K.",
-  },
-  {
-    title: "Very easy to love",
-    body: "No harsh edge, just a steady umami and a mellow finish. It gives me a focused start without feeling too intense.",
-    name: "Ava M.",
-  },
-];
+interface ProductReviewCarouselProps {
+  dictionary: Dictionary["product"]["reviewCarousel"];
+}
 
-export function ProductReviewCarousel() {
+export function ProductReviewCarousel({
+  dictionary,
+}: ProductReviewCarouselProps) {
   return (
     <Swiper
       slidesPerView="auto"
@@ -45,7 +24,7 @@ export function ProductReviewCarousel() {
         },
       }}
     >
-      {reviews.map((review) => (
+      {dictionary.items.map((review) => (
         <SwiperSlide
           key={`${review.name}-${review.title}`}
           className="!flex !h-auto !w-auto"
@@ -72,7 +51,7 @@ export function ProductReviewCarousel() {
               <div className="flex items-center justify-start gap-1">
                 <CircleCheck className="h-4 w-4 text-[#A49F9B]" />
                 <p className="font-libre text-[12px] font-medium leading-[31px] text-[#A49F9B]">
-                  Verified Purchase
+                  {dictionary.verifiedPurchase}
                 </p>
               </div>
             </div>

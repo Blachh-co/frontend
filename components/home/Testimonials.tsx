@@ -5,6 +5,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { ChevronUp, ChevronDown } from "lucide-react"
 import { Swiper, SwiperSlide } from "swiper/react"
+import type { Dictionary } from "@/lib/i18n"
 import TestimonialsCard from "../ui/TestimonialsCard"
 
 import "swiper/css"
@@ -30,49 +31,21 @@ const stagger = {
   },
 }
 
-const testimonials = [
-  {
-    imageUrl: "/mock/testimonial-person-1.png",
-    review:
-      "The quality blew me away, rich, smooth, and nothing like supermarket matcha. This is now my daily ritual.",
-    reviewerName: "Kaito S.",
-  },
-  {
-    imageUrl: "/mock/testimonial-person-2.png",
-    review:
-      "Ordered the Sakura Matcha and I'm obsessed. The packaging is so cute and the flavor is so smooth!",
-    reviewerName: "Mia K.",
-  },
-  {
-    imageUrl: "/mock/testimonial-person-3.png",
-    review:
-      "The matcha aesthetic is everything. Cute packaging, great quality. My morning routine is so much better now.",
-    reviewerName: "Yuna L.",
-  },
-  {
-    imageUrl: "/mock/testimonial-person-1.png",
-    review:
-      "I bought a tin for myself and ended up ordering two more as gifts. It feels premium without being fussy.",
-    reviewerName: "Elena R.",
-  },
-  {
-    imageUrl: "/mock/testimonial-person-2.png",
-    review:
-      "Creamy, vibrant, and easy to whisk. It genuinely made me slow down and enjoy breakfast again.",
-    reviewerName: "Noah T.",
-  },
-  {
-    imageUrl: "/mock/testimonial-person-3.png",
-    review:
-      "Every detail feels intentional, from the color to the taste. The whole experience feels calm and elevated.",
-    reviewerName: "Aiko M.",
-  },
-]
-
 const VISIBLE_CARDS = 3
 
-export function Testimonials() {
+interface TestimonialsProps {
+  dictionary: Dictionary["home"]["testimonials"]
+  previousLabel: string
+  nextLabel: string
+}
+
+export function Testimonials({
+  dictionary,
+  previousLabel,
+  nextLabel,
+}: TestimonialsProps) {
   const [startIndex, setStartIndex] = useState(0)
+  const testimonials = dictionary.items
 
   const maxStartIndex = Math.max(testimonials.length - VISIBLE_CARDS, 0)
 
@@ -95,21 +68,19 @@ export function Testimonials() {
           
           <motion.div variants={stagger} className="flex flex-col gap-3">
             <motion.h1 variants={fadeUp} className="font-libre text-[2rem] leading-tight text-[#1C1C1A] md:text-[2.625rem] md:leading-12">
-              Loved by <span className="text-[#9BB845]">matcha</span><br />
-              <span className="text-[#9BB845]">lovers</span> across the<br />
-              world.
+              {dictionary.titleStart} <span className="text-[#9BB845]">{dictionary.titleAccentOne}</span><br />
+              <span className="text-[#9BB845]">{dictionary.titleAccentTwo}</span> {dictionary.titleEnd}
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-black font-hanken text-sm leading-6 md:leading-4.25">
-              Real reviews from our community, people who love slow<br />
-              mornings, quality, matcha, and a little joy from Japan.
+              {dictionary.description}
             </motion.p>
           </motion.div>
 
           <motion.div variants={fadeUp} className="hidden items-center gap-4 xl:flex xl:flex-col xl:gap-6">
             <button
               type="button"
-              aria-label="Show previous testimonials"
+              aria-label={previousLabel}
               onClick={() => setStartIndex((current) => Math.max(current - 1, 0))}
               disabled={startIndex === 0}
               className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-[#1C1C1A] bg-white disabled:cursor-not-allowed disabled:opacity-40 md:h-14 md:w-14"
@@ -119,7 +90,7 @@ export function Testimonials() {
 
             <button
               type="button"
-              aria-label="Show more testimonials"
+              aria-label={nextLabel}
               onClick={() =>
                 setStartIndex((current) => Math.min(current + 1, maxStartIndex))
               }

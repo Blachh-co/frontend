@@ -1,0 +1,402 @@
+{
+  "nav": {
+    "shop": "Butik",
+    "about": "Om",
+    "contact": "Kontakt"
+  },
+  "locale": {
+    "en": "Engelska",
+    "th": "Thailandska",
+    "sv": "Svenska"
+  },
+  "a11y": {
+    "openMenu": "Oppna meny",
+    "closeMenu": "Stang meny",
+    "goHome": "Ga till startsidan",
+    "openShoppingBag": "Oppna shoppingvaskan",
+    "closeShoppingBag": "Stang shoppingvaskan",
+    "shoppingBag": "Shoppingvaska",
+    "openLanguageMenu": "Oppna sprakmeny",
+    "openFilters": "Oppna filter",
+    "closeFilters": "Stang filter",
+    "decreaseQuantity": "Minska antal",
+    "increaseQuantity": "Oka antal",
+    "showPreviousTestimonials": "Visa tidigare omdomen",
+    "showMoreTestimonials": "Visa fler omdomen",
+    "visitInstagram": "Besok Blachh pa Instagram",
+    "visitTiktok": "Besok Blachh pa TikTok",
+    "emailBlachh": "Mejla Blachh"
+  },
+  "banner": {
+    "message": "Fri frakt vid bestallningar over 800 kr · Forhandsboka nu · Skickas inom 7-14 dagar"
+  },
+  "footer": {
+    "links": [
+      "Om oss",
+      "Koppolicy",
+      "Integritet",
+      "Avbokningspolicy",
+      "Anvandarvillkor",
+      "Vanliga fragor"
+    ],
+    "copyright": "© 2025 Blachh Matcha"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Ceremoniell kvalitet · Stenmalen i Japan",
+      "title": "Gjort for langsamma morgnar.",
+      "description": "Matcha som smakar som morgonen du har letat efter.",
+      "rating": "★★★★★ 4.9 · 134 omdomen",
+      "cta": "Handla nu"
+    },
+    "collections": {
+      "eyebrow": "UTFORSKA PRODUKTER",
+      "title": "Hitta det som passar din ritual.",
+      "cta": "VISA ALLA",
+      "sizeDefault": "Standard",
+      "priceFrom": "Fran"
+    },
+    "community": {
+      "eyebrow": "VAR GEMENSKAP",
+      "title": "Ga med i Blachh-gemenskapen",
+      "description": "Glimtar av matcharitualer och slow living-stunder fran var gemenskap",
+      "cardTitles": [
+        "Morgonhamning",
+        "Kafehorn",
+        "Daglig ritual",
+        "Langsamt liv"
+      ],
+      "followText": "Folj oss pa Instagram",
+      "instagramHandle": "@blachh.co",
+      "followCta": "Folj",
+      "mascotAlt": "Blachh-maskot"
+    },
+    "testimonials": {
+      "titleStart": "Alskad av",
+      "titleAccentOne": "matcha",
+      "titleAccentTwo": "alskare",
+      "titleEnd": "runt om i varlden.",
+      "description": "Riktiga omdomen fran var gemenskap, manniskor som alskar langsamma morgnar, kvalitet, matcha och lite gladje fran Japan.",
+      "items": [
+        {
+          "imageUrl": "/mock/testimonial-person-1.png",
+          "review": "Kvaliteten slog mig helt. Rik, len och inget som stormarknadsmatcha. Det har ar nu min dagliga ritual.",
+          "reviewerName": "Kaito S."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-2.png",
+          "review": "Bestallde Sakura Matcha och ar helt fast. Forpackningen ar sa fin och smaken ar sa len!",
+          "reviewerName": "Mia K."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-3.png",
+          "review": "Matchaestetiken ar allt. Fin forpackning och fantastisk kvalitet. Min morgonrutin ar sa mycket battre nu.",
+          "reviewerName": "Yuna L."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-1.png",
+          "review": "Jag kopte en burk till mig sjalv och slutade med att bestalla tva till som presenter. Det kanns premium utan att bli tillgjort.",
+          "reviewerName": "Elena R."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-2.png",
+          "review": "Krämig, livfull och latt att vispa. Den fick mig verkligen att sakta ner och njuta av frukosten igen.",
+          "reviewerName": "Noah T."
+        },
+        {
+          "imageUrl": "/mock/testimonial-person-3.png",
+          "review": "Varje detalj kanns genomtankt, fran fargen till smaken. Hela upplevelsen kanns lugn och upphojd.",
+          "reviewerName": "Aiko M."
+        }
+      ]
+    }
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "Var historia",
+      "titleLineOne": "En lugnare start,",
+      "titleLineTwo": "formad av matcha.",
+      "description": "Blachh ar byggt kring kanslan av att en daglig ritual kan vara bade vacker och anvandbar. Vi bryr oss om lugn smak, mjuk design och produkter du stracker dig efter utan att tveka.",
+      "badges": [
+        "Ceremoniell kvalitet",
+        "Stenmalen i Japan",
+        "Stillsam vardagsritual"
+      ],
+      "imageAlt": "En matchaskal forberedd som del av en lugn morgonritual"
+    },
+    "why": {
+      "eyebrow": "Varfor Blachh",
+      "title": "Ett mjukare satt att se pa produkt och rutin.",
+      "paragraphs": [
+        "Blachh borjar med en enkel tanke: sma ritualer formar tonen i dagen. Matcha ar centrum i den ritualen, men upplevelsen runt omkring spelar ocksa roll, fargen, tempot, skalen och den korta pausen innan allt annat borjar.",
+        "Vi ville att varumarket skulle kannas forfinat utan att bli distanserat. Ren smak, stillsamma uttryck och en stammning nagonstans mellan japansk teritual och en mycket modern, langsam morgon hemma."
+      ],
+      "quote": "Målet ar inte bara bra matcha. Det ar en battre kansla runt stunden nar du gor den."
+    },
+    "craft": {
+      "imageEyebrow": "Hantverk och ursprung",
+      "imageTitle": "Matcha vald for smak, textur och en kopp du vill ha igen i morgon.",
+      "imageAlt": "Keramiska skalar och teverktyg arrangerade pa ett trabord",
+      "eyebrow": "Produkten",
+      "title": "Kvalitet spelar storst roll nar ritualen blir daglig.",
+      "description": "En vacker ritual varar inte om koppen gor dig besviken. Blachh formas kring matcha som kanns len, levande och latt att komma tillbaka till, oavsett om den vispas traditionellt eller blir en del av en stillsammare modern rutin.",
+      "highlights": [
+        "Ceremoniell matcha vald for en len och rund finish.",
+        "Stenmalen tradition och en smakprofil gjord for vardagsritualer.",
+        "En visuell varld inspirerad av stilla morgnar, keramik och slow living."
+      ]
+    },
+    "cta": {
+      "eyebrow": "Borja ritualen",
+      "title": "Utforska matchan som ar gjord for langsamma morgnar.",
+      "description": "Borja med produkten och gor sedan rutinen till din egen.",
+      "button": "Handla kollektionen"
+    }
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "PARTNER OCH GROSSIST",
+      "title": "Lat oss ta Blachh till dina hyllor.",
+      "description": "For kaféer, butiker, hospitality-miljoer och konceptbutiker med ett lugnare perspektiv. Vi samarbetar med aterforsaljare som varderar kvalitet, ritual och en tydlig visuell identitet.",
+      "primaryCta": "Skicka en forfragan",
+      "secondaryCta": "wholesale@blachh.co",
+      "details": [
+        {
+          "label": "Passar for",
+          "value": "Kaféer, butiker, konceptbutiker, hotell och wellnessmiljoer"
+        },
+        {
+          "label": "Region",
+          "value": "Sverige, Europa och utvalda internationella forfragningar"
+        },
+        {
+          "label": "Direkt e-post",
+          "value": "wholesale@blachh.co"
+        }
+      ],
+      "imageAlt": "Kafeinterior med hyllor och disk"
+    },
+    "benefits": {
+      "eyebrow": "Varfor samarbeta med oss",
+      "title": "En grossistsida som kanns mer som en varumarkesinbjudan.",
+      "description": "Ratt aterforsaljare vill oftast ha samma saker som dina kunder: kvalitet, tydlighet och en produkt som ser avsiktlig ut i rummet.",
+      "cards": [
+        {
+          "title": "Ceremoniell kvalitet",
+          "description": "Stenmalen matcha framtagen for lugna menyer, genomtankta butikshyllor och premiumgavor."
+        },
+        {
+          "title": "Varumarke redo for exponering",
+          "description": "En visuell identitet byggd for att naturligt passa i butiker, kaféer, studior och hospitalitymiljoer."
+        },
+        {
+          "title": "Omsorgsfull grossistsupport",
+          "description": "Prover, lanseringsstod och tydlig kommunikation for partners som bryr sig om hela kundupplevelsen."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Forfragningsformular",
+      "title": "Beratta lite om din plats.",
+      "description": "Dela din verksamhet, plats och vilken typ av partnerskap du ser framfor dig. Vi kan folja upp med tillganglighet, priser och nasta steg.",
+      "whatWeShareTitle": "Det har kan vi dela",
+      "whatWeShareItems": [
+        "Grossistpriser och vagledning for forsta ordern",
+        "Ledtider och leveransregioner",
+        "Prover och lanseringsstod for utvalda partners",
+        "Varumarkesmaterial for butik eller meny"
+      ],
+      "fields": {
+        "name": {
+          "label": "Namn",
+          "placeholder": "Ditt fullstandiga namn"
+        },
+        "business": {
+          "label": "Foretag / Butik",
+          "placeholder": "Studio, kafé, butik eller hotell"
+        },
+        "email": {
+          "label": "E-post",
+          "placeholder": "you@business.com"
+        },
+        "website": {
+          "label": "Webbplats eller Instagram",
+          "placeholder": "Webbadress eller @handle"
+        },
+        "location": {
+          "label": "Plats",
+          "placeholder": "Stad, land"
+        },
+        "orderInterest": {
+          "label": "Uppskattat orderintresse",
+          "placeholder": "Storlek pa oppningsorder eller forvantad frekvens"
+        }
+      },
+      "businessTypeLabel": "Typ av verksamhet",
+      "businessTypes": [
+        "Kafe",
+        "Butik",
+        "Hotell eller hospitality",
+        "Wellnessstudio",
+        "Konceptbutik",
+        "Annat"
+      ],
+      "messageLabel": "Meddelande",
+      "messagePlaceholder": "Beratta om din butik, meny, publik eller vilken typ av partnerskap du ser framfor dig.",
+      "notice": "Det har formularet ar just nu en designfokuserad yta for forfragningar. Direkt e-post ar fortfarande den snabbaste vagen for bradskande grossistforfragningar.",
+      "submit": "Skicka forfragan"
+    },
+    "emailCta": {
+      "mascotAlt": "Blachh-maskot",
+      "title": "Foredrar du e-post?",
+      "description": "Kontakta oss direkt pa wholesale@blachh.co eller besok @blachh.co for att se den bredare varlden runt varumarket.",
+      "button": "Mejla grossistteamet"
+    }
+  },
+  "products": {
+    "title": "Produkter",
+    "categories": {
+      "all": "Alla produkter",
+      "matcha": "Matcha",
+      "books": "Bocker",
+      "toys": "Leksaker"
+    },
+    "filters": {
+      "title": "Filter",
+      "subtitle": "Forfina produkter",
+      "size": "Storlek",
+      "price": "Pris",
+      "reset": "Aterstall",
+      "apply": "Anvand",
+      "sizeOptions": {
+        "all": "Alla storlekar",
+        "small": "Upp till 30 g",
+        "medium": "31 g - 50 g",
+        "large": "Over 50 g"
+      },
+      "priceOptions": {
+        "all": "Alla priser",
+        "sek": {
+          "under": "Under 350 kr",
+          "between": "350 kr - 500 kr",
+          "over": "500 kr och uppat"
+        },
+        "eur": {
+          "under": "Under 30 €",
+          "between": "30 € - 45 €",
+          "over": "45 € och uppat"
+        },
+        "usd": {
+          "under": "Under $35",
+          "between": "$35 - $50",
+          "over": "$50 och uppat"
+        }
+      }
+    },
+    "labels": {
+      "sizeDefault": "Standard",
+      "priceFrom": "Fran"
+    }
+  },
+  "product": {
+    "emptyState": "Ingen produkt ar tillganglig.",
+    "freeShippingPrefix": "Fri frakt pa bestallningar over",
+    "reviewSummary": {
+      "count": "128 omdomen",
+      "sectionTitle": "Kundomdomen",
+      "basedOn": "Baserat pa 4,934 omdomen"
+    },
+    "purchase": {
+      "weight": "Vikt",
+      "sizeDefault": "Standard",
+      "addToCart": "Lagg i varukorg",
+      "adding": "Lagger till..."
+    },
+    "tabs": {
+      "items": [
+        {
+          "id": "description",
+          "label": "Beskrivning",
+          "paragraphs": [
+            "Odlad i de dimmiga bergen i Kagoshima ar denna forsta skordens matcha skapad av kultivarerna Okumidori och Saemidori. Med djup umami, len textur och toner av hinokiskog ger den klarhet och lugn till din dag.",
+            "Profilen forblir len och balanserad i en ren vispad skal, med tillrackligt djup for att kannas lager pa lager utan att bli bitter.",
+            "Det har ar sortens matcha som fungerar fint som ett vardagligt ritualval nar du vill ha klarhet, sotma och en ren textur."
+          ]
+        },
+        {
+          "id": "brewing-notes",
+          "label": "Bryggnoter",
+          "paragraphs": [
+            "Sikta 1 till 2 teskedar i en varm skal for att ta bort klumpar och ge en jamn sluttextur.",
+            "Tillsatt en liten mangd vatten runt 75 till 80 grader Celsius och vispa sedan i snabba sicksackrorelser tills ett fint skum bildas.",
+            "For en lattare kopp, anvand mer vatten. For en fylligare kopp, hall nere vattenmangden och vispa for en tatatre kropp."
+          ]
+        },
+        {
+          "id": "storage",
+          "label": "Forvaring",
+          "paragraphs": [
+            "Håll burken tat forsluten och forvara den svalt, torrt och borta fran direkt solljus.",
+            "Nar den val ar oppnad, undvik varme och fukt sa att farg och arom haller sig frascha langre.",
+            "For bast smak, anvand burken inom nagra veckor efter oppning och lat den bli rumstempererad innan anvandning om den har varit kyld."
+          ]
+        }
+      ]
+    },
+    "reviewCarousel": {
+      "verifiedPurchase": "Verifierat kop",
+      "items": [
+        {
+          "title": "Den basta vardagsmatchan",
+          "body": "Len, livfull och naturligt sot utan bitterhet. Jag dricker den varje morgon och den satter tonen for en lugn och fokuserad dag.",
+          "name": "Sophie L."
+        },
+        {
+          "title": "Vackert balanserad",
+          "body": "Umamin ar djup och rund, och avslutet forblir rent. Den kanns forfinad utan att vara for skir for vardagsdrickande.",
+          "name": "Marcus T."
+        },
+        {
+          "title": "Mjuk och jordande",
+          "body": "Det finns en lugn skogston i den har som verkligen sticker ut. Texturen ar silkeslen och sotman kommer fram naturligt.",
+          "name": "Elin R."
+        },
+        {
+          "title": "Vard ritualen",
+          "body": "Latt att vispa, ser levande ut i skalen och forblir len aven nar jag gor den lite starkare. En av mina favoriter utan tvekan.",
+          "name": "Daniel K."
+        },
+        {
+          "title": "Mycket latt att tycka om",
+          "body": "Ingen hard kant, bara stadig umami och ett mjukt avslut. Den ger mig en fokuserad start utan att kannas for intensiv.",
+          "name": "Ava M."
+        }
+      ]
+    }
+  },
+  "cart": {
+    "eyebrow": "Shoppingvaska",
+    "title": "Granska din bestallning",
+    "continueShopping": "Fortsatt handla",
+    "empty": "Din vaska ar tom.",
+    "quantity": "Antal",
+    "items": "Varor",
+    "subtotal": "Delsumma",
+    "checkoutWithShopify": "Betala med Shopify",
+    "defaultVariant": "Standardvariant",
+    "drawer": {
+      "title": "Shoppingvaska",
+      "emptyTitle": "Din vaska ar tom",
+      "emptyDescription": "Lagg till nagra produkter sa visas de har.",
+      "emptySupport": "Din valda matcha och dina tillbehor visas i den har ladan.",
+      "productSingular": "produkt",
+      "productPlural": "produkter",
+      "defaultSize": "Standardstorlek",
+      "viewBag": "Visa vaskan",
+      "checkout": "Till kassan",
+      "updating": "Uppdaterar...",
+      "removeItemPrefix": "Ta bort",
+      "removeItemSuffix": "fran shoppingvaskan"
+    }
+  }
+}
