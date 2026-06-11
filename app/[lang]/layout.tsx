@@ -33,7 +33,13 @@ export default async function LocalizedLayout({
   ]);
 
   return (
-    <div className={lang === "th" ? "[--font-app-sans:var(--font-noto-sans-thai)]" : undefined}>
+    <div
+      className={
+        lang === "th"
+          ? "[--font-app-sans:var(--font-noto-sans-thai)] [--font-app-cormorant:var(--font-noto-sans-thai)] [--font-app-hanken:var(--font-noto-sans-thai)] [--font-app-libre:var(--font-noto-sans-thai)] [--font-app-heading:var(--font-noto-sans-thai)]"
+          : undefined
+      }
+    >
       <Banner dictionary={dictionary.banner} />
       <Navbar
         currentCurrency={currencyPreference.currencyCode}
