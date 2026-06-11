@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
@@ -73,9 +73,7 @@ export function CurrencySelector({
 
       setIsOpen(false);
       await refreshCart();
-      startTransition(() => {
-        router.refresh();
-      });
+      router.refresh();
     } finally {
       setPendingCurrency(null);
     }

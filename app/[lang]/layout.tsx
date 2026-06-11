@@ -42,12 +42,16 @@ export default async function LocalizedLayout({
     >
       <Banner dictionary={dictionary.banner} />
       <Navbar
+        key={`navbar-${currencyPreference.currencyCode}`}
         currentCurrency={currencyPreference.currencyCode}
         lang={lang}
         dictionary={dictionary}
       />
-      <main className="flex-1">{children}</main>
+      <main key={`content-${currencyPreference.currencyCode}`} className="flex-1">
+        {children}
+      </main>
       <Footer
+        key={`footer-${currencyPreference.currencyCode}`}
         currentCurrency={currencyPreference.currencyCode}
         dictionary={dictionary.footer}
       />
