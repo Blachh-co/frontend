@@ -5,7 +5,7 @@ import { ProductReviewCarousel } from "@/components/products/ProductReviewCarous
 import { getFreeShippingLabel, type SupportedCurrencyCode } from "@/lib/currency";
 import { getCurrencyPreferenceFromRequest } from "@/lib/currency-server";
 import { getFeaturedProduct } from "@/lib/products";
-import { ChevronDown, Star, Truck } from "lucide-react";
+import { Star, Truck } from "lucide-react";
 
 const reviewCounts = 128;
 const rating = 4.9;
@@ -62,20 +62,6 @@ export default async function LocalizedProductDetailPage() {
                   {reviewCounts} reviews
                 </p>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <p className="font-libre text-[14px] leading-[31px] font-normal text-[#000]">
-                Weight
-              </p>
-              <button
-                type="button"
-                className="flex h-[44px] cursor-pointer items-center justify-between rounded-[2px] border border-[rgba(28,28,26,0.50)] px-4"
-              >
-                <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-                  {featuredProduct.size > 0 ? `${featuredProduct.size}g` : "Default"}
-                </span>
-                <ChevronDown className="h-5 w-5 text-[#1C1C1A]" />
-              </button>
             </div>
             <ProductDetailPurchasePanel product={featuredProduct} />
             <div className="flex items-start justify-start gap-3 md:items-center md:gap-4">

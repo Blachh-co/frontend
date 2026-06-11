@@ -28,6 +28,32 @@ interface CollectionsProps {
   products: Product[];
 }
 
+function getProductSizeLabel(product: Product): string {
+  const sizes = [...new Set(product.variants.map((variant) => variant.size))].sort(
+    (left, right) => left - right,
+  );
+
+  if (sizes.length <= 1) {
+    return `${product.size}g`;
+  }
+
+  return `${sizes[0]}g - ${sizes[sizes.length - 1]}g`;
+}
+
+function getProductPriceLabel(product: Product): string {
+  if (product.variants.length <= 1) {
+    return product.formattedPrice;
+  }
+
+  const lowestPriceVariant = [...product.variants].sort(
+    (left, right) => left.price - right.price,
+  )[0];
+
+  return lowestPriceVariant
+    ? `From ${lowestPriceVariant.formattedPrice}`
+    : product.formattedPrice;
+}
+
 export function Collections({ products }: CollectionsProps) {
   const highlightedProducts = highlightedProductNames
     .map((productName) =>
@@ -57,12 +83,12 @@ export function Collections({ products }: CollectionsProps) {
       </p>
 
       <p className="mt-1 font-hanken text-[12px] leading-[27px] font-light text-[#9A9A94]">
-        {product.size}g
+        {getProductSizeLabel(product)}
       </p>
 
       <div className="flex items-center justify-between">
         <p className="font-hanken text-[12px] leading-[27px] font-normal text-[#6F8B5E]">
-          {product.formattedPrice}
+          {getProductPriceLabel(product)}
         </p>
 
         <MoveRight className="h-6 w-6 text-black" />

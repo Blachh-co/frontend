@@ -37,23 +37,38 @@ export function Footer({ currentCurrency }: FooterProps) {
       <div className="flex w-full flex-col gap-8 md:h-full md:justify-between md:px-5">
         <div className="flex flex-col gap-1">
           <Link
-            href="mailto:hello@blach.co"
+            href="mailto:hello@blachh.co"
             className="font-hanken text-sm font-light text-black underline"
           >
-            hello@blach.co
+            hello@blachh.co
           </Link>
           <Link
-            href="mailto:hello@blach.co"
+            href="mailto:wholesale@blachh.co"
             className="font-hanken text-sm font-light text-black underline"
           >
-            wholesale@blach.co
+            wholesale@blachh.co
           </Link>
         </div>
 
         <div className="flex items-center gap-4">
-          <InstagramIcon />
-          <TiktokIcon />
-          <Mail className="w-5.5 h-5.5" />
+          <Link
+            href="https://www.instagram.com/blachh.co/"
+            aria-label="Visit Blachh on Instagram"
+          >
+            <InstagramIcon />
+          </Link>
+          <Link
+            href="https://www.tiktok.com/@blachh.co"
+            aria-label="Visit Blachh on TikTok"
+          >
+            <TiktokIcon />
+          </Link>
+          <Link
+            href="mailto:hello@blachh.co"
+            aria-label="Email Blachh"
+          >
+            <Mail className="w-5.5 h-5.5" />
+          </Link>
         </div>
 
         <div className="flex flex-col items-start md:self-end md:items-center">

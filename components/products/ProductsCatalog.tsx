@@ -80,6 +80,32 @@ function getPriceBucket(
   return "500-plus";
 }
 
+function getProductSizeLabel(product: Product): string {
+  const sizes = [...new Set(product.variants.map((variant) => variant.size))].sort(
+    (left, right) => left - right,
+  );
+
+  if (sizes.length <= 1) {
+    return product.size > 0 ? `${product.size}g` : "Default";
+  }
+
+  return `${sizes[0]}g - ${sizes[sizes.length - 1]}g`;
+}
+
+function getProductPriceLabel(product: Product): string {
+  if (product.variants.length <= 1) {
+    return product.formattedPrice;
+  }
+
+  const lowestPriceVariant = [...product.variants].sort(
+    (left, right) => left.price - right.price,
+  )[0];
+
+  return lowestPriceVariant
+    ? `From ${lowestPriceVariant.formattedPrice}`
+    : product.formattedPrice;
+}
+
 function FilterSection({
   title,
   value,
@@ -432,7 +458,7 @@ export function ProductsCatalog({ products }: ProductsCatalogProps) {
                 {product.productName}
               </p>
               <p className="font-hanken text-[22px] leading-snug text-[#1C1C1A]">
-                {product.size}g - {product.formattedPrice}
+                {getProductSizeLabel(product)} - {getProductPriceLabel(product)}
               </p>
             </div>
 
