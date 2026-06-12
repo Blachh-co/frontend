@@ -24,7 +24,7 @@ test("replaceLocaleInPathname keeps the route suffix intact", () => {
 
 test("localizeHref prefixes internal paths with the active locale", () => {
   assert.equal(localizeHref("/products", "/th/about"), "/th/products");
-  assert.equal(localizeHref("/product-detail", "/sv"), "/sv/product-detail");
+  assert.equal(localizeHref("/products/society-hinoki", "/sv"), "/sv/products/society-hinoki");
   assert.equal(localizeHref("/en/contact", "/th/about"), "/en/contact");
 });
 

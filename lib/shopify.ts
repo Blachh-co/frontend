@@ -26,6 +26,7 @@ interface ShopifyProductVariantNode {
 
 export interface ShopifyProductNode {
   id: string;
+  handle: string;
   title: string;
   description: string;
   productType: string;
@@ -181,6 +182,7 @@ export async function getShopifyProducts(
       products(first: 12) {
         nodes {
           id
+          handle
           title
           description
           productType
@@ -209,6 +211,52 @@ export async function getShopifyProducts(
   `, options);
 
   return data.products.nodes;
+}
+
+interface ShopifyProductByHandleResponse {
+  productByHandle: ShopifyProductNode | null;
+}
+
+export async function getShopifyProductByHandle(
+  handle: string,
+  options: ShopifyFetchOptions = {},
+): Promise<ShopifyProductNode | null> {
+  const data = await shopifyFetch<ShopifyProductByHandleResponse>(
+    `
+      query GetProductByHandle($handle: String!) {
+        productByHandle(handle: $handle) {
+          id
+          handle
+          title
+          description
+          productType
+          featuredImage {
+            url
+          }
+          variants(first: 10) {
+            nodes {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+            }
+          }
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    `,
+    options,
+    { handle },
+  );
+
+  return data.productByHandle;
 }
 
 const cartFields = `

@@ -6,6 +6,7 @@ import {
   cartCookieName,
   createEmptyCart,
   hasCartCurrencyMismatch,
+  localizeShopifyCart,
   mapProductToCartLineInput,
   mapShopifyCart,
   parseCartRequestBody,
@@ -57,6 +58,42 @@ test("createEmptyCart returns a consistent empty cart state", () => {
 test("hasCartCurrencyMismatch detects mismatched market carts", () => {
   assert.equal(hasCartCurrencyMismatch({ currencyCode: "USD" }, "EUR"), true);
   assert.equal(hasCartCurrencyMismatch({ currencyCode: "USD" }, "USD"), false);
+});
+
+test("localizeShopifyCart converts cart amounts into the selected currency", () => {
+  const localizedCart = localizeShopifyCart(
+    {
+      id: "gid://shopify/Cart/123",
+      checkoutUrl: "https://checkout.example/cart",
+      currencyCode: "SEK",
+      subtotalAmount: 300,
+      totalAmount: 300,
+      totalQuantity: 2,
+      lines: [
+        {
+          id: "gid://shopify/CartLine/1",
+          merchandiseId: "gid://shopify/ProductVariant/1",
+          productId: "gid://shopify/Product/1",
+          productTitle: "Society Hinoki",
+          variantTitle: "30g",
+          imageUrl: "https://cdn.example/hinoki.png",
+          quantity: 2,
+          unitAmount: 150,
+          lineAmount: 300,
+          currencyCode: "SEK",
+        },
+      ],
+    },
+    "USD",
+    {
+      SEK: { SEK: 1, USD: 0.1 },
+    },
+  );
+
+  assert.equal(localizedCart.currencyCode, "USD");
+  assert.equal(localizedCart.subtotalAmount, 30);
+  assert.equal(localizedCart.lines[0]?.unitAmount, 15);
+  assert.equal(localizedCart.lines[0]?.currencyCode, "USD");
 });
 
 test("buildCartCookieOptions sets secure cookie defaults", () => {

@@ -479,7 +479,7 @@ export function ProductsCatalog({
         {filteredProducts.map((product) => (
           <MotionLink
             key={`${product.productName}-${product.size}`}
-            href={localizeHref("/product-detail", pathname ?? "/")}
+            href={localizeHref(`/products/${product.handle}`, pathname ?? "/")}
             prefetch={false}
             className="flex flex-col gap-4 border border-[#E8E3DC] px-4 py-3 transition-[background-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#EFE8DE]"
             variants={revealCard}

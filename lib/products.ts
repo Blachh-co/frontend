@@ -5,14 +5,51 @@ import {
   type Product,
 } from "@/components/products/productsData";
 import { type SupportedCurrencyCode } from "@/lib/currency";
-import { mapMockProduct, mapShopifyProduct } from "@/lib/product-mappers";
-import { getShopifyProducts } from "@/lib/shopify";
+import { getExchangeRates } from "@/lib/exchange-rates";
+import {
+  localizeProductCurrency,
+  mapMockProduct,
+  mapShopifyProduct,
+} from "@/lib/product-mappers";
+import { getShopifyProductByHandle, getShopifyProducts } from "@/lib/shopify";
 
 const isMockEnabled = process.env.MOCK_ENABLED === "true";
 
 interface ProductQueryOptions {
   countryCode?: string;
   currencyCode?: SupportedCurrencyCode;
+}
+
+async function localizeProducts(
+  products: Product[],
+  currencyCode: SupportedCurrencyCode,
+): Promise<Product[]> {
+  const baseCurrencyCodes = [
+    ...new Set(
+      products.flatMap((product) => [
+        product.currency as SupportedCurrencyCode,
+        ...product.variants.map(
+          (variant) => variant.currency as SupportedCurrencyCode,
+        ),
+      ]),
+    ),
+  ].filter((baseCurrencyCode) => baseCurrencyCode !== currencyCode);
+
+  const exchangeRatesEntries = await Promise.all(
+    baseCurrencyCodes.map(async (baseCurrencyCode) => [
+      baseCurrencyCode,
+      await getExchangeRates(baseCurrencyCode),
+    ] as const),
+  );
+  const exchangeRatesByBaseCurrency = Object.fromEntries(exchangeRatesEntries);
+
+  return products.map((product) =>
+    localizeProductCurrency(
+      product,
+      currencyCode,
+      exchangeRatesByBaseCurrency,
+    ),
+  );
 }
 
 export async function getProducts(
@@ -27,7 +64,35 @@ export async function getProducts(
   const shopifyProducts = await getShopifyProducts({
     countryCode: options.countryCode,
   });
-  return shopifyProducts.map(mapShopifyProduct);
+  const mappedProducts = shopifyProducts.map(mapShopifyProduct);
+  return localizeProducts(mappedProducts, currencyCode);
+}
+
+export async function getProductByHandle(
+  handle: string,
+  options: ProductQueryOptions = {},
+): Promise<Product | null> {
+  const currencyCode = options.currencyCode ?? "USD";
+
+  if (isMockEnabled) {
+    const product = mockProducts.find((item) => item.handle === handle);
+    return product ? mapMockProduct(product, currencyCode) : null;
+  }
+
+  const shopifyProduct = await getShopifyProductByHandle(handle, {
+    countryCode: options.countryCode,
+  });
+
+  if (!shopifyProduct) {
+    return null;
+  }
+
+  const [localizedProduct] = await localizeProducts(
+    [mapShopifyProduct(shopifyProduct)],
+    currencyCode,
+  );
+
+  return localizedProduct ?? null;
 }
 
 export async function getFeaturedProduct(

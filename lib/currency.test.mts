@@ -58,8 +58,8 @@ test("formatMoney renders localized currency output", () => {
 
 test("convertPriceFromSek converts mock prices into the selected currency", () => {
   assert.equal(convertPriceFromSek(745, "SEK"), 745);
-  assert.equal(convertPriceFromSek(745, "USD"), 71);
-  assert.equal(convertPriceFromSek(745, "EUR"), 67);
+  assert.equal(convertPriceFromSek(745, "USD"), 70.78);
+  assert.equal(convertPriceFromSek(745, "EUR"), 67.05);
 });
 
 test("getPriceFilterConfig returns currency-aware filter labels", () => {

@@ -4,7 +4,9 @@ import type {
   ProductVariant,
 } from "../components/products/productsData";
 import {
-  convertPriceFromSek,
+  convertPrice,
+  getFallbackConversionRates,
+  type CurrencyRates,
   formatMoney,
   type SupportedCurrencyCode,
 } from "./currency";
@@ -72,6 +74,7 @@ export function mapShopifyProduct(product: ShopifyProductNode): Product {
 
   return {
     id: product.id,
+    handle: product.handle,
     merchandiseId: defaultVariant.merchandiseId,
     imageSrc: product.featuredImage?.url ?? "/mock/products/society-hinoki.png",
     productName: product.title,
@@ -87,33 +90,59 @@ export function mapShopifyProduct(product: ShopifyProductNode): Product {
   };
 }
 
+export function localizeProductCurrency(
+  product: Product,
+  currencyCode: SupportedCurrencyCode,
+  exchangeRatesByBaseCurrency: Partial<
+    Record<SupportedCurrencyCode, CurrencyRates>
+  > = {},
+): Product {
+  const variants = product.variants.map((variant) => {
+    const variantCurrency = variant.currency as SupportedCurrencyCode;
+    const localizedPrice = convertPrice(
+      variant.price,
+      variantCurrency,
+      currencyCode,
+      exchangeRatesByBaseCurrency[variantCurrency],
+    );
+
+    return {
+      ...variant,
+      price: localizedPrice,
+      currency: currencyCode,
+      formattedPrice: formatMoney(localizedPrice, currencyCode),
+    };
+  });
+
+  const productCurrency = product.currency as SupportedCurrencyCode;
+  const localizedProductPrice = convertPrice(
+    product.price,
+    productCurrency,
+    currencyCode,
+    exchangeRatesByBaseCurrency[productCurrency],
+  );
+  const selectedVariant =
+    variants.find((variant) => variant.merchandiseId === product.merchandiseId) ??
+    variants[0];
+
+  return {
+    ...product,
+    merchandiseId: selectedVariant?.merchandiseId ?? product.merchandiseId,
+    size: selectedVariant?.size ?? product.size,
+    price: selectedVariant?.price ?? localizedProductPrice,
+    currency: currencyCode,
+    formattedPrice:
+      selectedVariant?.formattedPrice ??
+      formatMoney(localizedProductPrice, currencyCode),
+    variants,
+  };
+}
+
 export function mapMockProduct(
   product: Product,
   currencyCode: SupportedCurrencyCode,
 ): Product {
-  const variants = product.variants.map((variant) =>
-    normalizeVariant(
-      {
-        ...variant,
-        price: convertPriceFromSek(variant.price, currencyCode),
-      },
-      currencyCode,
-    ),
-  );
-  const defaultVariant = getDefaultVariant(variants, {
-    merchandiseId: product.merchandiseId,
-    size: product.size,
-    price: convertPriceFromSek(product.price, currencyCode),
-    currency: currencyCode,
+  return localizeProductCurrency(product, currencyCode, {
+    SEK: getFallbackConversionRates("SEK"),
   });
-
-  return {
-    ...product,
-    merchandiseId: defaultVariant.merchandiseId,
-    size: defaultVariant.size,
-    price: defaultVariant.price,
-    currency: currencyCode,
-    formattedPrice: defaultVariant.formattedPrice,
-    variants,
-  };
 }

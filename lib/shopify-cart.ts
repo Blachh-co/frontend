@@ -1,4 +1,8 @@
-import type { SupportedCurrencyCode } from "./currency.ts";
+import {
+  convertPrice,
+  type CurrencyRates,
+  type SupportedCurrencyCode,
+} from "./currency.ts";
 
 export const cartCookieName = "blachh-shopify-cart-id";
 
@@ -101,6 +105,54 @@ export function mapShopifyCart(cart: ShopifyCartNode): ShopifyCart {
       quantity: line.quantity,
       unitAmount: Number(line.merchandise.price.amount),
       lineAmount: Number(line.cost.totalAmount.amount),
+      currencyCode,
+    })),
+  };
+}
+
+export function localizeShopifyCart(
+  cart: ShopifyCart,
+  currencyCode: SupportedCurrencyCode,
+  exchangeRatesByBaseCurrency: Partial<
+    Record<SupportedCurrencyCode, CurrencyRates>
+  > = {},
+): ShopifyCart {
+  if (cart.currencyCode === currencyCode) {
+    return cart;
+  }
+
+  const nextSubtotalAmount = convertPrice(
+    cart.subtotalAmount,
+    cart.currencyCode,
+    currencyCode,
+    exchangeRatesByBaseCurrency[cart.currencyCode],
+  );
+  const nextTotalAmount = convertPrice(
+    cart.totalAmount,
+    cart.currencyCode,
+    currencyCode,
+    exchangeRatesByBaseCurrency[cart.currencyCode],
+  );
+
+  return {
+    ...cart,
+    currencyCode,
+    subtotalAmount: nextSubtotalAmount,
+    totalAmount: nextTotalAmount,
+    lines: cart.lines.map((line) => ({
+      ...line,
+      unitAmount: convertPrice(
+        line.unitAmount,
+        line.currencyCode,
+        currencyCode,
+        exchangeRatesByBaseCurrency[line.currencyCode],
+      ),
+      lineAmount: convertPrice(
+        line.lineAmount,
+        line.currencyCode,
+        currencyCode,
+        exchangeRatesByBaseCurrency[line.currencyCode],
+      ),
       currencyCode,
     })),
   };

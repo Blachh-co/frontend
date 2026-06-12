@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 
+import { getExchangeRates } from "@/lib/exchange-rates";
 import {
   buildCartCookieOptions,
   cartCookieName,
   createEmptyCart,
+  localizeShopifyCart,
   parseCartRequestBody,
 } from "@/lib/shopify-cart";
 import { getRequestCartState } from "@/lib/shopify-cart-server";
@@ -34,6 +36,19 @@ function withCartCookie(
   return response;
 }
 
+async function localizeCartResponseCurrency(
+  cart: ReturnType<typeof mapShopifyCart>,
+  currencyCode: Awaited<ReturnType<typeof getRequestCartState>>["currencyCode"],
+) {
+  if (cart.currencyCode === currencyCode) {
+    return cart;
+  }
+
+  return localizeShopifyCart(cart, currencyCode, {
+    [cart.currencyCode]: await getExchangeRates(cart.currencyCode),
+  });
+}
+
 export async function GET() {
   const { cart, stale } = await getRequestCartState();
   const response = NextResponse.json({ cart });
@@ -62,7 +77,10 @@ export async function POST(request: Request) {
     const shopifyCart = state.cartId && !state.stale
       ? await addCartLines(state.cartId, addLines, { countryCode: state.countryCode })
       : await createCart(addLines, { countryCode: state.countryCode });
-    const cart = mapShopifyCart(shopifyCart);
+    const cart = await localizeCartResponseCurrency(
+      mapShopifyCart(shopifyCart),
+      state.currencyCode,
+    );
 
     return withCartCookie(
       NextResponse.json({ cart }),
@@ -90,7 +108,8 @@ export async function PATCH(request: Request) {
     }
 
     const { lines } = parseCartRequestBody(await request.json());
-    const cart = mapShopifyCart(
+    const cart = await localizeCartResponseCurrency(
+      mapShopifyCart(
       await updateCartLines(
         state.cartId,
         lines.map((line) => ({
@@ -100,6 +119,8 @@ export async function PATCH(request: Request) {
         })),
         { countryCode: state.countryCode },
       ),
+    ),
+      state.currencyCode,
     );
 
     return NextResponse.json({ cart });
@@ -131,8 +152,11 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "lineIds are required." }, { status: 400 });
     }
 
-    const cart = mapShopifyCart(
+    const cart = await localizeCartResponseCurrency(
+      mapShopifyCart(
       await removeCartLines(state.cartId, lineIds, { countryCode: state.countryCode }),
+    ),
+      state.currencyCode,
     );
 
     return NextResponse.json({ cart });

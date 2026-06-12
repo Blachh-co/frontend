@@ -7,6 +7,7 @@ import type { ShopifyProductNode } from "./shopify.ts";
 test("mapShopifyProduct preserves product variants and defaults to the first variant", () => {
   const product: ShopifyProductNode = {
     id: "gid://shopify/Product/1",
+    handle: "society-hinoki",
     title: "Society Hinoki",
     description: "Ceremonial matcha",
     productType: "Matcha",
@@ -33,6 +34,7 @@ test("mapShopifyProduct preserves product variants and defaults to the first var
   const mapped = mapShopifyProduct(product);
 
   assert.equal(mapped.merchandiseId, "gid://shopify/ProductVariant/50g");
+  assert.equal(mapped.handle, "society-hinoki");
   assert.equal(mapped.size, 50);
   assert.equal(mapped.price, 30);
   assert.equal(mapped.formattedPrice, "$30.00");
@@ -64,6 +66,7 @@ test("mapMockProduct converts every variant into the selected currency", () => {
   const mapped = mapMockProduct(
     {
       id: "mock-product-society-hinoki",
+      handle: "society-hinoki",
       merchandiseId: "mock-variant-society-hinoki-50g",
       imageSrc: "/mock/products/society-hinoki.png",
       productName: "Society Hinoki",
@@ -96,8 +99,8 @@ test("mapMockProduct converts every variant into the selected currency", () => {
   );
 
   assert.equal(mapped.merchandiseId, "mock-variant-society-hinoki-50g");
-  assert.equal(mapped.price, 29);
-  assert.equal(mapped.formattedPrice, "$29.00");
+  assert.equal(mapped.price, 28.5);
+  assert.equal(mapped.formattedPrice, "$28.50");
   assert.deepEqual(
     mapped.variants.map((variant) => ({
       merchandiseId: variant.merchandiseId,
@@ -110,15 +113,15 @@ test("mapMockProduct converts every variant into the selected currency", () => {
       {
         merchandiseId: "mock-variant-society-hinoki-50g",
         size: 50,
-        price: 29,
-        formattedPrice: "$29.00",
+        price: 28.5,
+        formattedPrice: "$28.50",
         currency: "USD",
       },
       {
         merchandiseId: "mock-variant-society-hinoki-100g",
         size: 100,
-        price: 52,
-        formattedPrice: "$52.00",
+        price: 52.25,
+        formattedPrice: "$52.25",
         currency: "USD",
       },
     ],

@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 
 import { useCart } from "@/components/cart/CartProvider";
 import { ProductQuantityStepper } from "@/components/products/ProductQuantityStepper";
+import { formatMoney, type SupportedCurrencyCode } from "@/lib/currency";
 import type { Dictionary } from "@/lib/i18n";
 import type {
   Product,
@@ -13,12 +14,14 @@ import type {
 
 interface ProductDetailPurchasePanelProps {
   product: Product;
+  currentCurrency: SupportedCurrencyCode;
   dictionary: Dictionary["product"]["purchase"];
   a11y: Dictionary["a11y"];
 }
 
 export function ProductDetailPurchasePanel({
   product,
+  currentCurrency,
   dictionary,
   a11y,
 }: ProductDetailPurchasePanelProps) {
@@ -30,12 +33,19 @@ export function ProductDetailPurchasePanel({
     merchandiseId: product.merchandiseId,
     size: product.size,
     price: product.price,
-    currency: product.currency,
-    formattedPrice: product.formattedPrice,
+    currency: currentCurrency,
+    formattedPrice: formatMoney(product.price, currentCurrency),
   };
+  const selectedVariantPriceLabel = formatMoney(
+    selectedVariant.price,
+    currentCurrency,
+  );
 
   const handleAddToCart = async () => {
-    await addItem(createCartProduct(product, selectedVariant), quantity);
+    await addItem(
+      createCartProduct(product, selectedVariant, currentCurrency),
+      quantity,
+    );
   };
 
   return (
@@ -108,7 +118,7 @@ export function ProductDetailPurchasePanel({
           </span>
           <span className="h-[3px] w-[3px] rounded-full bg-[#1C1C1A]" />
           <span className="font-libre text-[14px] font-normal leading-[31px] text-[#1C1C1A]">
-            {selectedVariant.formattedPrice}
+            {selectedVariantPriceLabel}
           </span>
         </button>
       </div>
@@ -116,13 +126,17 @@ export function ProductDetailPurchasePanel({
   );
 }
 
-function createCartProduct(product: Product, variant: ProductVariant): Product {
+function createCartProduct(
+  product: Product,
+  variant: ProductVariant,
+  currentCurrency: SupportedCurrencyCode,
+): Product {
   return {
     ...product,
     merchandiseId: variant.merchandiseId,
     size: variant.size,
     price: variant.price,
-    currency: variant.currency,
-    formattedPrice: variant.formattedPrice,
+    currency: currentCurrency,
+    formattedPrice: formatMoney(variant.price, currentCurrency),
   };
 }

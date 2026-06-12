@@ -12,6 +12,7 @@ export interface ProductVariant {
 
 export interface Product {
   id: string;
+  handle: string;
   merchandiseId: string;
   imageSrc: string;
   productName: string;
@@ -41,6 +42,14 @@ interface ProductSeed {
   }>;
 }
 
+function createProductHandle(productName: string) {
+  return productName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function createVariant(
   merchandiseId: string,
   size: number,
@@ -67,6 +76,7 @@ function buildProduct(seed: ProductSeed): Product {
 
   return {
     id: seed.id,
+    handle: createProductHandle(seed.productName),
     merchandiseId: defaultVariant.merchandiseId,
     imageSrc: seed.imageSrc,
     productName: seed.productName,

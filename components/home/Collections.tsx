@@ -72,7 +72,7 @@ export function Collections({ products, dictionary }: CollectionsProps) {
   const renderProductCard = (product: (typeof highlightedProducts)[number]) => (
     <LocalizedLink
       key={`${product.productName}-${product.size}`}
-      href="/product-detail"
+      href={`/products/${product.handle}`}
       prefetch={false}
       className="flex w-full flex-col gap-0 md:w-[150px]"
     >

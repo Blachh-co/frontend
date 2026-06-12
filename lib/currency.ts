@@ -1,6 +1,7 @@
 export type SupportedCurrencyCode = "SEK" | "EUR" | "USD";
 export type CurrencySource = "cookie" | "geo" | "fallback";
 export type PriceFilterValue = "all" | "under-350" | "350-500" | "500-plus";
+export type CurrencyRates = Partial<Record<SupportedCurrencyCode, number>>;
 export interface CurrencyOption {
   countryCode: string;
   currencyCode: SupportedCurrencyCode;
@@ -83,10 +84,25 @@ const manualMarketCountryByCurrency: Record<SupportedCurrencyCode, string> = {
   USD: "US",
 };
 
-const mockConversionRateFromSek: Record<SupportedCurrencyCode, number> = {
-  SEK: 1,
-  EUR: 0.09,
-  USD: 0.095,
+const fallbackConversionRatesByBaseCurrency: Record<
+  SupportedCurrencyCode,
+  Record<SupportedCurrencyCode, number>
+> = {
+  SEK: {
+    SEK: 1,
+    EUR: 0.09,
+    USD: 0.095,
+  },
+  EUR: {
+    SEK: 11.11,
+    EUR: 1,
+    USD: 1.06,
+  },
+  USD: {
+    SEK: 10.53,
+    EUR: 0.94,
+    USD: 1,
+  },
 };
 
 const freeShippingThresholdByCurrency: Record<SupportedCurrencyCode, number> = {
@@ -195,11 +211,38 @@ export function getPriceFilterConfig(currencyCode: SupportedCurrencyCode) {
   return priceFilterLabels[currencyCode];
 }
 
+export function getFallbackConversionRates(
+  baseCurrencyCode: SupportedCurrencyCode,
+): CurrencyRates {
+  return fallbackConversionRatesByBaseCurrency[baseCurrencyCode];
+}
+
+function roundMoneyAmount(amount: number) {
+  return Math.round(amount * 100) / 100;
+}
+
+export function convertPrice(
+  amount: number,
+  fromCurrencyCode: SupportedCurrencyCode,
+  toCurrencyCode: SupportedCurrencyCode,
+  rates: CurrencyRates = getFallbackConversionRates(fromCurrencyCode),
+): number {
+  if (fromCurrencyCode === toCurrencyCode) {
+    return roundMoneyAmount(amount);
+  }
+
+  const conversionRate =
+    rates[toCurrencyCode] ??
+    fallbackConversionRatesByBaseCurrency[fromCurrencyCode][toCurrencyCode];
+
+  return roundMoneyAmount(amount * conversionRate);
+}
+
 export function convertPriceFromSek(
   amountInSek: number,
   currencyCode: SupportedCurrencyCode,
 ): number {
-  return Math.round(amountInSek * mockConversionRateFromSek[currencyCode]);
+  return convertPrice(amountInSek, "SEK", currencyCode);
 }
 
 export function getFreeShippingLabel(currencyCode: SupportedCurrencyCode): string {
