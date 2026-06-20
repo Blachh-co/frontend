@@ -3,7 +3,10 @@ import { CartProvider } from "@/components/cart/CartProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Frontend",
+  title: {
+    default: "Blachh.co",
+    template: "%s | Blachh.co",
+  },
   description: "A shadcn-enabled Next.js app.",
 };
 

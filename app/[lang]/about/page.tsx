@@ -5,7 +5,7 @@ import { AboutPageContent } from "@/app/about/AboutPageContent";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "About | Blachh",
+  title: "About",
   description:
     "Learn the story behind Blachh, our approach to matcha, and the slower rituals that shape the brand.",
 };
