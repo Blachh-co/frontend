@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Dictionary } from "@/lib/i18n";
 
@@ -29,13 +30,6 @@ const stagger = {
   },
 };
 
-const communityCardVideos = [
-  "https://assets.mixkit.co/videos/43936/43936-720.mp4",
-  "https://assets.mixkit.co/videos/41220/41220-720.mp4",
-  "https://assets.mixkit.co/videos/88006/88006-720.mp4",
-  "https://assets.mixkit.co/videos/4385/4385-720.mp4",
-] as const;
-
 interface OurCommuninityProps {
   dictionary: Dictionary["home"]["community"];
 }
@@ -45,31 +39,62 @@ export function OurCommuninity({ dictionary }: OurCommuninityProps) {
   const onClickFollowButton = () => {
     router.push("https://instagram.com/blachh.co");
   };
-  const communityCards = dictionary.cardTitles.map((title, index) => ({
-    title,
-    videoSrc: communityCardVideos[index] ?? communityCardVideos[0],
-  }));
+  const communityCards = dictionary.cards;
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
+
+  const playVideo = (index: number) => {
+    setActiveIndex(index);
+    videoRefs.current.forEach((video, videoIndex) => {
+      if (!video) return;
+      if (videoIndex === index) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  };
+
+  const resetActiveCard = () => {
+    playVideo(0);
+  };
 
   const renderCard = (
     card: (typeof communityCards)[number],
-    extraClassName = "",
-  ) => (
-    <div
-      className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#EDE3D6] md:h-full md:aspect-[4/5] md:rounded-md ${extraClassName}`}
-      aria-label={card.title}
-    >
-      <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
+    index: number,
+  ) => {
+    const isActive = index === activeIndex;
+    return (
+      <div
+        className={`relative aspect-[3/4] shrink-0 overflow-hidden rounded-2xl bg-[#EDE3D6] transition-[width] duration-500 ease-out md:aspect-[4/5] md:rounded-md ${
+          isActive
+            ? "w-[260px] sm:w-[300px] md:w-[340px] lg:w-[380px]"
+            : "w-[200px] sm:w-[230px] md:w-[260px] lg:w-[290px]"
+        }`}
+        aria-label={card.title}
+        onMouseEnter={() => playVideo(index)}
+        onMouseLeave={resetActiveCard}
+        onFocus={() => playVideo(index)}
+        onBlur={resetActiveCard}
+        tabIndex={0}
       >
-        <source src={card.videoSrc} type="video/mp4" />
-      </video>
-    </div>
-  );
+        <video
+          ref={(el) => {
+            videoRefs.current[index] = el;
+          }}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          autoPlay={isActive}
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        >
+          <source src={card.videoUrl} type="video/mp4" />
+        </video>
+      </div>
+    );
+  };
 
   return (
     <motion.section
@@ -95,26 +120,18 @@ export function OurCommuninity({ dictionary }: OurCommuninityProps) {
           {dictionary.description}
         </motion.h2>
 
-        <motion.div variants={fadeUp} className="mt-8 w-full md:hidden">
+        <motion.div variants={fadeUp} className="mt-8 w-full md:mt-6">
           <Swiper
-            slidesPerView={1}
+            slidesPerView="auto"
             spaceBetween={12}
             className="w-full"
           >
-            {communityCards.map((card) => (
-              <SwiperSlide key={card.title} className="pb-1">
-                {renderCard(card, "min-w-0")}
+            {communityCards.map((card, index) => (
+              <SwiperSlide key={index} className="!w-auto pb-1">
+                {renderCard(card, index)}
               </SwiperSlide>
             ))}
           </Swiper>
-        </motion.div>
-
-        <motion.div variants={fadeUp} className="mt-8 hidden w-full md:mt-6 md:grid md:grid-cols-4 md:items-stretch md:gap-2.5">
-          {communityCards.map((card) => (
-            <div key={card.title} className="h-full">
-              {renderCard(card)}
-            </div>
-          ))}
         </motion.div>
       </motion.div>
 

@@ -60,11 +60,23 @@
       "eyebrow": "VAR GEMENSKAP",
       "title": "Ga med i Blachh-gemenskapen",
       "description": "Glimtar av matcharitualer och slow living-stunder fran var gemenskap",
-      "cardTitles": [
-        "Morgonhamning",
-        "Kafehorn",
-        "Daglig ritual",
-        "Langsamt liv"
+      "cards": [
+        {
+          "title": "Morgonhamning",
+          "videoUrl": "https://assets.mixkit.co/videos/43936/43936-720.mp4"
+        },
+        {
+          "title": "Kafehorn",
+          "videoUrl": "https://assets.mixkit.co/videos/41220/41220-720.mp4"
+        },
+        {
+          "title": "Daglig ritual",
+          "videoUrl": "https://assets.mixkit.co/videos/88006/88006-720.mp4"
+        },
+        {
+          "title": "Langsamt liv",
+          "videoUrl": "https://assets.mixkit.co/videos/4385/4385-720.mp4"
+        }
       ],
       "followText": "Folj oss pa Instagram",
       "instagramHandle": "@blachh.co",

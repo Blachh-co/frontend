@@ -60,11 +60,23 @@
       "eyebrow": "ชุมชนของเรา",
       "title": "เข้าร่วมชุมชน Blachh",
       "description": "ภาพช่วงเวลามัทฉะและไลฟ์สไตล์แบบค่อยเป็นค่อยไปจากชุมชนของเรา",
-      "cardTitles": [
-        "รินยามเช้า",
-        "มุมคาเฟ่",
-        "พิธีประจำวัน",
-        "ใช้ชีวิตช้า ๆ"
+      "cards": [
+        {
+          "title": "รินยามเช้า",
+          "videoUrl": "https://assets.mixkit.co/videos/43936/43936-720.mp4"
+        },
+        {
+          "title": "มุมคาเฟ่",
+          "videoUrl": "https://assets.mixkit.co/videos/41220/41220-720.mp4"
+        },
+        {
+          "title": "พิธีประจำวัน",
+          "videoUrl": "https://assets.mixkit.co/videos/88006/88006-720.mp4"
+        },
+        {
+          "title": "ใช้ชีวิตช้า ๆ",
+          "videoUrl": "https://assets.mixkit.co/videos/4385/4385-720.mp4"
+        }
       ],
       "followText": "ติดตามเราบน Instagram",
       "instagramHandle": "@blachh.co",

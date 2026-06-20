@@ -1,6 +1,8 @@
 import en from "@/messages/en.json";
 import sv from "@/messages/sv.json";
 import th from "@/messages/th.json";
+import { getSiteContent } from "@/lib/sanity/queries";
+import { resolveLocale } from "@/lib/sanity/localize";
 
 export const locales = ["en", "th", "sv"] as const;
 
@@ -16,8 +18,34 @@ export function isValidLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
+// Sections editable in Sanity are overlaid on top of the static dictionary;
+// anything not yet created in the CMS (or if Sanity isn't configured at all)
+// falls back to the JSON value untouched, so this never throws.
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
-  return dictionaries[locale];
+  const base = dictionaries[locale];
+  const cms = await getSiteContent();
+
+  if (!cms) return base;
+
+  return {
+    ...base,
+    banner: cms.banner ? (resolveLocale(cms.banner, locale) as Dictionary["banner"]) : base.banner,
+    footer: cms.footer ? (resolveLocale(cms.footer, locale) as Dictionary["footer"]) : base.footer,
+    home: cms.home ? (resolveLocale(cms.home, locale) as Dictionary["home"]) : base.home,
+    about: cms.about ? (resolveLocale(cms.about, locale) as Dictionary["about"]) : base.about,
+    contact: cms.contact
+      ? (resolveLocale(cms.contact, locale) as Dictionary["contact"])
+      : base.contact,
+    product: {
+      ...base.product,
+      ...(cms.productCopy
+        ? (resolveLocale(cms.productCopy, locale) as Pick<
+            Dictionary["product"],
+            "tabs" | "reviewCarousel" | "reviewSummary"
+          >)
+        : {}),
+    },
+  };
 }
 
 export function replaceLocaleInPathname(pathname: string, locale: Locale) {

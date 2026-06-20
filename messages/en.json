@@ -60,11 +60,23 @@
       "eyebrow": "OUR COMMUNITY",
       "title": "Join the Blachh Community",
       "description": "Snapshots of matcha rituals and slow living moments from our community",
-      "cardTitles": [
-        "Morning pour",
-        "Cafe corner",
-        "Daily ritual",
-        "Slow living"
+      "cards": [
+        {
+          "title": "Morning pour",
+          "videoUrl": "https://assets.mixkit.co/videos/43936/43936-720.mp4"
+        },
+        {
+          "title": "Cafe corner",
+          "videoUrl": "https://assets.mixkit.co/videos/41220/41220-720.mp4"
+        },
+        {
+          "title": "Daily ritual",
+          "videoUrl": "https://assets.mixkit.co/videos/88006/88006-720.mp4"
+        },
+        {
+          "title": "Slow living",
+          "videoUrl": "https://assets.mixkit.co/videos/4385/4385-720.mp4"
+        }
       ],
       "followText": "Follow us on Instagram",
       "instagramHandle": "@blachh.co",
