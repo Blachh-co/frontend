@@ -70,6 +70,10 @@ export interface ShopifyCartNode {
 interface ShopifyProductsResponse {
   products: {
     nodes: ShopifyProductNode[];
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
   };
 }
 
@@ -174,43 +178,63 @@ async function shopifyFetch<T>(
   return payload.data;
 }
 
+const PRODUCTS_PAGE_SIZE = 250;
+
 export async function getShopifyProducts(
   options: ShopifyFetchOptions = {},
 ): Promise<ShopifyProductNode[]> {
-  const data = await shopifyFetch<ShopifyProductsResponse>(`
-    query GetProducts {
-      products(first: 12) {
-        nodes {
-          id
-          handle
-          title
-          description
-          productType
-          featuredImage {
-            url
-          }
-          variants(first: 10) {
+  const allProducts: ShopifyProductNode[] = [];
+  let cursor: string | null = null;
+  let hasNextPage = true;
+
+  while (hasNextPage) {
+    const data: ShopifyProductsResponse = await shopifyFetch<ShopifyProductsResponse>(
+      `
+        query GetProducts($first: Int!, $after: String) {
+          products(first: $first, after: $after) {
             nodes {
               id
+              handle
               title
-              price {
-                amount
-                currencyCode
+              description
+              productType
+              featuredImage {
+                url
+              }
+              variants(first: 10) {
+                nodes {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+              priceRange {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                }
               }
             }
-          }
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
+            pageInfo {
+              hasNextPage
+              endCursor
             }
           }
         }
-      }
-    }
-  `, options);
+      `,
+      options,
+      { first: PRODUCTS_PAGE_SIZE, after: cursor },
+    );
 
-  return data.products.nodes;
+    allProducts.push(...data.products.nodes);
+    hasNextPage = data.products.pageInfo.hasNextPage;
+    cursor = data.products.pageInfo.endCursor;
+  }
+
+  return allProducts;
 }
 
 interface ShopifyProductByHandleResponse {
